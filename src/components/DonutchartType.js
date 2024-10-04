@@ -1,9 +1,11 @@
 import { useTheme } from '@material-ui/core/styles';
+
 import React, { useEffect, useState } from "react";
 import Chart from 'react-apexcharts';
 import Baseurl from "./Baseurl";
-import '../assets/css/donutchart.css'
-function Donutchart() {
+import './donutchart.css'
+function DonutchartSuccesful(props) {
+    let type = props.type;
     const theme = useTheme();
     const [oprNames, setOprNames] = useState(['getuid', 'storeuid', 'activate', "deactivate"]);
     const [counts, setCounts] = useState([0, 0, 0, 0]);
@@ -28,15 +30,17 @@ function Donutchart() {
                     padding: CryptoJS.pad.Pkcs7,
                 }
             );
+
             decryptedText = decryptedData.toString(CryptoJS.enc.Utf8);
         }
         /////////////////////////////get username
+        const chartData=[decryptedText, type];
         const getdata = async () => {
             const oprname = [];
             const count = [];
-            const reqData = await fetch(Baseurl + "DonutChart", {
+            const reqData = await fetch(Baseurl + "DonutchartType", {
                 method: "post",
-                body: decryptedText,
+                body: JSON.stringify(chartData),
                 headers: {
                     "Content-Type": "application/json",
                     "Access-Control-Allow-Origin": "*",
@@ -62,16 +66,12 @@ function Donutchart() {
                     // width={350}
                     height={215}
                     series={counts}
-
                     options={{
                         labels: oprNames,
-
-
                         title: {
                             // text:"counts Country Name",
                             // align:"center",
                         },
-
                         plotOptions: {
                             pie: {
                                 donut: {
@@ -87,14 +87,6 @@ function Donutchart() {
                                             fontSize: 20,
                                             color: '#f90000',
                                         },
-                                        // style: {
-                                        //     fontSize: '14px',
-                                        //     fontFamily: 'Roboto, sans-serif',
-                                        //     fontWeight: 400,
-                                        //     colors: ['#fff', '#fff', '#fff', '#fff'], // set the color of text to white
-                                        //   },
-
-
                                     }
                                 }
                             }
@@ -111,13 +103,9 @@ function Donutchart() {
                         },
 
                     }}
-                // apply CSS class to label text
-                //   className="donut-chart"
                 />
-
             </div>
         </React.Fragment>
     );
 }
-export default Donutchart;
-
+export default DonutchartSuccesful;

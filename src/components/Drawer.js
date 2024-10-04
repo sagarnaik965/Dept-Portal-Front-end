@@ -15,7 +15,9 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useTheme } from '@material-ui/core/styles';
-import advlogo from '../assets/img/advlogo.png';
+// import advlogo from '../assets/img/advlogo.png';
+import advlogo from '../assets/img/ADV logo-01.png';
+
 import { useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import { Tooltip, } from '@mui/material';
@@ -34,7 +36,7 @@ const DrawerComp = () => {
   const theme = useTheme();
   let [username, setusername] = useState("")
   let { authStore } = useSelector((state) => state);
-  const linklogin=BaseLocal+'\login'
+  const linklogin = BaseLocal + '\login'
   const history = useHistory();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -42,36 +44,34 @@ const DrawerComp = () => {
   useEffect(() => {
     /////////////////////////////get lc
     try {
-        var CryptoJS = require("crypto-js");
-        var base64Key = "QWJjZGVmZ2hpamtsbW5vcA==";
-        var key = CryptoJS.enc.Base64.parse(base64Key);
-        if (localStorage.getItem("LsdItped")) {
-            var decryptedData = CryptoJS.AES.decrypt(
-                localStorage.getItem("LsdItped").replace("slashinurl", "/").replace("plusinurl", "+"),
-                key,
-                {
-                    mode: CryptoJS.mode.ECB,
-                    padding: CryptoJS.pad.Pkcs7,
-                }
-            );
-            var decryptedText = decryptedData.toString(CryptoJS.enc.Utf8);
-        }
-        setusername(decryptedText);
+      var CryptoJS = require("crypto-js");
+      var base64Key = "QWJjZGVmZ2hpamtsbW5vcA==";
+      var key = CryptoJS.enc.Base64.parse(base64Key);
+      if (localStorage.getItem("LsdItped")) {
+        var decryptedData = CryptoJS.AES.decrypt(
+          localStorage.getItem("LsdItped").replace("slashinurl", "/").replace("plusinurl", "+"),
+          key,
+          {
+            mode: CryptoJS.mode.ECB,
+            padding: CryptoJS.pad.Pkcs7,
+          }
+        );
+        var decryptedText = decryptedData.toString(CryptoJS.enc.Utf8);
+      }
+      setusername(decryptedText);
     } catch (error) {
-        console.log(error)
+      console.log(error)
     }
     /////////////////////////////get username
-}, [])
+  }, [])
 
-const processLoginAction = () => {
-    console.log("in AdminnavBarLogout")
-    localStorage.clear()
-    history.push("/deptadmin/LoginRequired")
-};
+  const processLoginAction = () => {
+   history.push("/adv/LoginRequired")
+  };
 
-const handleuserredirect =() =>{
-  history.push('/adv/dashboard')
-}       
+  const handleuserredirect = () => {
+    history.push('/adv/dashboard')
+  }
 
   return (
     <React.Fragment>
@@ -107,14 +107,12 @@ const handleuserredirect =() =>{
                     style={{ backgroundImage: theme.dash.backgroundColor }}
 
                   >
-                    <Typography variant="h9" style={{ color: theme.typography.color }}><b>About us</b></Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Typography variant="h9">
-                      <a href="/adv/whatisadv">  Aadhaar Data Vault(ADV)</a>
+                    <a target="_blank" href='https://advservice.epramaan.gov.in/dashboard/'>
 
-                    </Typography>
-                  </AccordionDetails>
+                      <Typography variant="h9" style={{ color: theme.typography.color }}><b>About us</b></Typography>
+                    </a>
+                  </AccordionSummary>
+
                 </Accordion>
               </ListItemText>
             </ListItemIcon>
@@ -131,22 +129,12 @@ const handleuserredirect =() =>{
                     id="panel1a-header"
                     style={{ backgroundImage: theme.dash.backgroundColor }}
                   >
-                    <Typography variant="h9" style={{ color: theme.typography.color }}><b>Services</b></Typography>
+                    <a target="_blank" href='https://advservice.epramaan.gov.in/dashboard/'>
+                      <Typography variant="h9" style={{ color: theme.typography.color }}><b>Services</b></Typography>
+                    </a>
                   </AccordionSummary>
-                  <AccordionDetails>
-                    <Typography variant="h9">
-                      <a href="/adv/advasservice">  Aadhaar Data Vault as Service</a>
 
-                    </Typography>
 
-                  </AccordionDetails>
-                  <AccordionDetails>
-
-                    <Typography variant="h9">
-                      <a href="/adv/advassolution">  Aadhaar Data Vault as Solution</a>
-
-                    </Typography>
-                  </AccordionDetails>
                 </Accordion>
               </ListItemText>
             </ListItemIcon>
@@ -164,22 +152,12 @@ const handleuserredirect =() =>{
                     id="panel1a-header"
                     style={{ backgroundImage: theme.dash.backgroundColor }}
                   >
-                    <Typography variant="h9" style={{ color: theme.typography.color }}><b>Contact us</b></Typography>
+                    <a target="_blank" href='https://advservice.epramaan.gov.in/dashboard/'>
+
+                      <Typography variant="h9" style={{ color: theme.typography.color }}><b>Contact us</b></Typography>
+                    </a>
                   </AccordionSummary>
-                  <AccordionDetails>
-                    <Typography variant="h9">
-                      <a href="/adv/contact">Contacts</a>
-
-                    </Typography>
-
-                  </AccordionDetails>
-                  <AccordionDetails>
-
-                    <Typography variant="h9">
-                      <a href="/adv/resources">Resources</a>
-
-                    </Typography>
-                  </AccordionDetails>
+                  
                 </Accordion>
               </ListItemText>
             </ListItemIcon>
@@ -197,10 +175,10 @@ const handleuserredirect =() =>{
 
                 {!authStore.loginStatus &&
                   <Box sx={{ flexGrow: 0 }}>
-                    <Tooltip title='login'>
+                       <Tooltip title={username}>
                       <IconButton sx={{ p: 0 }} size='large' >
                         <a href={linklogin}> <AccountCircleTwoToneIcon style={{ color: 'white', width: isSmallScreen ? '60px' : '100px', height: '45px', paddingTop: '0px', paddingBottom: '0px', right: '0px' }} />
-                        <Button variant="outlined" style={{margin:'black' }}>Login</Button></a>
+                          <Button variant="outlined" style={{ margin: 'black' }}>Login</Button></a>
 
                       </IconButton>
                     </Tooltip>
@@ -211,9 +189,9 @@ const handleuserredirect =() =>{
                 {authStore.loginStatus &&
                   <Box sx={{ flexGrow: 0 }}>
                     <Tooltip title={username}>
-                      <IconButton sx={{ p: 0 }} size='large' onClick={processLoginAction} >
+                      <IconButton sx={{ p: 0 }} size='large'  >
 
-                        <AccountCircleTwoToneIcon style={{ color: 'black', width: isSmallScreen ? '60px' : '100px', height: '45px', paddingTop: '0px', paddingBottom: '0px', right: '0px'}} />
+                        <AccountCircleTwoToneIcon style={{ color: 'black', width: isSmallScreen ? '60px' : '100px', height: '45px', paddingTop: '0px', paddingBottom: '0px', right: '0px' }} />
                       </IconButton>
                     </Tooltip>
                     <Button variant="contained"

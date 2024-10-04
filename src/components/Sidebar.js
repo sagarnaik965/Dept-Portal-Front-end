@@ -5,6 +5,7 @@ import AdminNavbarLogout from './AdminNavbarLogout';
 
 import { AiOutlineHome } from 'react-icons/ai';
 
+// import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { AiOutlineForm } from 'react-icons/ai';
 import { MdAppRegistration, MdGroups } from "react-icons/md";
 import { TbReport } from "react-icons/tb";
@@ -13,294 +14,189 @@ import 'react-pro-sidebar/dist/css/styles.css';
 import { useSelector } from 'react-redux';
 import { useTheme } from '@material-ui/core';
 import { Typography } from '@mui/material';
-import Box from '@mui/material/Box';
-import BarChartIcon from '@mui/icons-material/BarChart';
+
+
 
 
 export default function Sidebar() {
-    const theme = useTheme();
+    const theme=useTheme();
     const [showSidebar, setShowSidebar] = useState('-left-64');
     let { authStore } = useSelector((state) => state);
     const roleStatus = authStore.roletype;
+//   const [portaltype, setportaltype] = useState();
 
+//     if (authStore.type == 'd') {
+//         setportaltype(true)
+//       } else {
+//         setportaltype(false)
+//       }
 
     return (
 
         <>
+            {/* <div style={{overflowY:"scroll",scrollMargin:"1px black"}}> */}
+            {!authStore.loginStatus &&
+            <></>
 
-            {/* <div style={{overflow:'scroll'}}> */}
-            <Box sx={{ overflow: 'auto' }}>
-                {!authStore.loginStatus &&
-                    <></>
+                // <AdminNavbar
+                //     showSidebar={showSidebar}
+                //     setShowSidebar={setShowSidebar}
+                // />
 
-                }
+              
+            }
 
-                {authStore.loginStatus &&
+            {authStore.loginStatus &&
 
-                    <AdminNavbarLogout
-                        showSidebar={showSidebar}
-                        setShowSidebar={setShowSidebar}
-                    />
+                <AdminNavbarLogout
+                    showSidebar={showSidebar}
+                    setShowSidebar={setShowSidebar}
+                />
 
-                }
-                {/* <div
-                    className={`h-screen fixed top-0 md:left-0 sm:left-0 ${showSidebar} overflow-y-auto flex-row flex-nowrap overflow-hidden shadow-xl bg-white w-64 z-10 py-4 px-6 transition-all duration-300`}
-                    style={{ maxHeight: 'auto', height: 'auto', marginTop: '130px', backgroundColor: theme.sidebar.backgroundColor, position:'fixed',zIndex:'2'}}
-                > */}
+            }
+            <div
+                // style={{overflowY:"scroll"}}
+                className={`h-screen fixed top-0 md:left-0 sm:left-0 ${showSidebar} overflow-y-auto flex-row flex-nowrap overflow-hidden shadow-xl bg-white w-64 z-10 py-4 px-6 transition-all duration-300`}
+                style={{ maxHeight: 'auto',  height: '60%',marginTop:'130px' , backgroundColor:theme.sidebar.backgroundColor,position:'fixed',zIndex:'2'}}
+            >
+                <div className="flex-col items-stretch min-h-full flex-nowrap px-0 relative">
+                    {/* <a
+                        href="http://localhost:8080/adv"
+                        target="_blank"
+                        rel="noreferrer"
+                    >                       
+                        <Grid container spacing={1}>
+                            <Grid item xs={3} >
+                                <img src={advlogo} width="60px" />
+                            </Grid>
+                            <Grid item xs={9}>
+                                    <span> <b> <h6 style={{ marginLeft: '0px' ,marginTop:'10px'}}>Aadhaar Data Vault</h6></b></span>
+                                </Grid>
+                        </Grid>
+                        
+                      
+                    </a> */}
 
-                <div
-                    // style={{overflowY:"scroll"}}
-                    className={`h-screen fixed top-0 md:left-0 sm:left-0 ${showSidebar} overflow-y-auto flex-row flex-nowrap overflow-hidden shadow-xl bg-white w-64 z-10 py-4 px-6 transition-all duration-300`}
-                    style={{ maxHeight: 'auto', height: '60%', marginTop: '130px', backgroundColor: theme.sidebar.backgroundColor, position: 'fixed', zIndex: '2' }}
-                >
-                    <div className="flex-col items-stretch min-h-full flex-nowrap px-0 relative">
+                    <div className="flex flex-col" >
+                        {/* <hr className="my-4 min-w-full" /> */}
 
+                        <ul className="flex-col min-w-full flex list-none"
+                        // style={{maxHeight: 370, overflow: 'auto'}}
+                        >
 
-                        <div className="flex flex-col" >
-
-                            <ul className="flex-col min-w-full flex list-none">
-
-
-
-                                <li className="rounded-lg mb-1 mt-0">
+                            {/* <li className="rounded-lg mb-4 mt-2">
+                        <Accordion>
+                            <AccordionSummary
+                                expandIcon={<MdOutlineExpandMore />}
+                            >
+                                <Typography>
                                     <NavLink
-
-                                        to={`/deptadmin`}
+                                        to="/"
                                         exact
                                         className="flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
                                         activeClassName="bg-gradient-to-tr from-light-blue-500 to-light-blue-700 text-white shadow-md"
                                     >
-                                        <AiOutlineHome style={{ color: theme.typography.primary.paragraphbody }} />
-                                        <Typography variant='h7' style={{ color: theme.typography.primary.paragraphbody }}> Dashboard</Typography>
-
+                                        <AiOutlineHome />
+                                        Dashboard
                                     </NavLink>
-                                </li>
+                                </Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <Typography>
+                                    Settings
+                                </Typography>
+                            </AccordionDetails>
+                        </Accordion>
+                        </li> */}
 
 
-                                <li className="rounded-lg mb-1 ">
-                                    <NavLink
-                                        to="/deptadmin/adminappdetails"
-                                        exact
-                                        className="flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
-                                        activeClassName="bg-gradient-to-tr from-light-blue-500 to-light-blue-700 text-white shadow-md"
-                                    >
-                                        <MdGroups style={{ color: theme.typography.primary.paragraphbody }} />
-                                        <Typography variant='h7' style={{ color: theme.typography.primary.paragraphbody }}>  Application Details</Typography>
-
-                                    </NavLink>
-                                </li>
-
-                                <li className="rounded-lg mb-1 ">
-                                    <NavLink
-                                        to="/deptadmin/registration"
-                                        exact
-                                        className="flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
-                                        activeClassName="bg-gradient-to-tr from-light-blue-500 to-light-blue-700 text-white shadow-md"
-                                    >
-                                        <MdAppRegistration style={{ color: theme.typography.primary.paragraphbody }} />
-                                        <Typography variant='h7' style={{ color: theme.typography.primary.paragraphbody }}>Department Registration </Typography>
-
-                                    </NavLink>
-                                </li>
-
-                                <li className="rounded-lg mb-1 ">
-                                    <NavLink
-                                        to="/deptadmin/appregistration"
-                                        exact
-                                        className="flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
-                                        activeClassName="bg-gradient-to-tr from-light-blue-500 to-light-blue-700 text-white shadow-md"
-                                    >
-                                        <AiOutlineForm style={{ color: theme.typography.primary.paragraphbody }} />
-                                        <Typography variant='h7' style={{ color: theme.typography.primary.paragraphbody }}>Application Registration </Typography>
-
-                                    </NavLink>
-                                </li>
-
-                                <li className="rounded-lg mb-1 ">
-                                    <NavLink
-                                        to="/deptadmin/keyregistration"
-                                        exact
-                                        className="flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
-                                        activeClassName="bg-gradient-to-tr from-light-blue-500 to-light-blue-700 text-white shadow-md"
-                                    >
-                                        <VscKey style={{ color: theme.typography.primary.paragraphbody }} />
-                                        <Typography variant='h7' style={{ color: theme.typography.primary.paragraphbody }}>Key Registration </Typography>
-
-                                    </NavLink>
-                                </li>
-
-                                <li className="rounded-lg mb-1 ">
-                                    <NavLink
-                                        to="/deptadmin/keymapping"
-                                        exact
-                                        className="flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
-                                        activeClassName="bg-gradient-to-tr from-light-blue-500 to-light-blue-700 text-white shadow-md"
-                                    >
-                                        <VscKey style={{ color: theme.typography.primary.paragraphbody }} />
-                                        <Typography variant='h7' style={{ color: theme.typography.primary.paragraphbody }}>Key Mapping </Typography>
-
-                                    </NavLink>
-                                </li>
+                            <li className="rounded-lg mb-1 mt-0">
+                                <NavLink
+                                    // to={`/${authStore.deptId}/${authStore.role}`}
+                                    // to={`/${localStorage.getItem("DeptIdLS")}/${localStorage.getItem("RoleLS")}`}
+                                    // to={`/${localStorage.getItem("DeptIdLS")}`}
+                                    to={`/adv`}
+                                    
 
 
-                                {roleStatus == "1" &&
-
-                                    <li className="rounded-lg mb-1 ">
-                                        <NavLink
-                                            to="/deptadmin/registration"
-                                            exact
-                                            className="flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
-                                            activeClassName="bg-gradient-to-tr from-light-blue-500 to-light-blue-700 text-white shadow-md"
-                                        >
-                                            <MdAppRegistration style={{ color: theme.typography.primary.paragraphbody }} />
-                                            <Typography variant='h7' style={{ color: theme.typography.primary.paragraphbody }}> Department Registration</Typography>
 
 
-                                        </NavLink>
-                                    </li>
-                                }
-
-                                {roleStatus == "1" &&
-                                    <li className="rounded-lg mb-1">
-                                        <NavLink
-                                            to="/deptadmin/appregistration"
-                                            exact
-                                            className="flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
-                                            activeClassName="bg-gradient-to-tr from-light-blue-500 to-light-blue-700 text-white shadow-md"
-                                        >
-                                            <AiOutlineForm style={{ color: theme.typography.primary.paragraphbody }} />
-                                            <Typography variant='h7' style={{ color: theme.typography.primary.paragraphbody }}>  Application Registration</Typography>
+                                    // to="/ECI0001"
+                                    exact
+                                    className="flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
+                                    activeClassName="bg-gradient-to-tr from-light-blue-500 to-light-blue-700 text-white shadow-md"
+                                >
+                                    {/* <Icon name="dashboard" size="2xl" /> */}
+                                    <AiOutlineHome  style={{color:theme.typography.primary.paragraphbody}}/>
+                                    <Typography variant='h7' style={{color:theme.typography.primary.paragraphbody}}> Dashboard</Typography>
+                                   
+                                </NavLink>
+                            </li>
 
 
-                                        </NavLink>
-                                    </li>
-                                }
 
 
-                                {roleStatus == "1" &&
-                                    <li className="rounded-lg mb-1 ">
-                                        <NavLink
-                                            to="/deptadmin/keyregistration"
-                                            exact
-                                            className="flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
-                                            activeClassName="bg-gradient-to-tr from-light-blue-500 to-light-blue-700 text-white shadow-md"
-                                        >
-                                            <VscKey />
-                                            Key Registration
-                                        </NavLink>
-                                    </li>
-                                }
+
+                            <li className="rounded-lg mb-1 ">
+                                <NavLink
+                                    to="/adv/appdetails"
+                                    exact
+                                    className="flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
+                                    activeClassName="bg-gradient-to-tr from-light-blue-500 to-light-blue-700 text-white shadow-md"
+                                >
+                                    {/* <Icon name="settings" size="2xl" /> */}
+                                    <MdGroups  style={{color:theme.typography.primary.paragraphbody}} />
+                                    <Typography variant='h7' style={{color:theme.typography.primary.paragraphbody}}>  Application Details</Typography>
+                                   
+                                </NavLink>
+                            </li>
 
 
-                                {roleStatus == "1" &&
-                                    <li className="rounded-lg mb-1 ">
-                                        <NavLink
-                                            to="/deptadmin/keymapping"
-                                            exact
-                                            className="flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
-                                            activeClassName="bg-gradient-to-tr from-light-blue-500 to-light-blue-700 text-white shadow-md"
-                                        >
-                                            <VscKey />
-                                            Key Mapping
-                                        </NavLink>
-                                    </li>
-                                }
+
+
+                          
 
 
 
                                 <li className="rounded-lg mb-1 ">
                                     <NavLink
-                                        to="/deptadmin/reportsapp"
+                                        to="/adv/reports"
                                         exact
                                         className="flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
                                         activeClassName="bg-gradient-to-tr from-light-blue-500 to-light-blue-700 text-white shadow-md"
                                     >
-                                        <TbReport style={{ color: theme.typography.primary.paragraphbody }} />
-                                        <Typography variant='h7' style={{ color: theme.typography.primary.paragraphbody }}>Report</Typography>
+                                        {/* <Icon name="dashboard" size="2xl" /> */}
+                                        <TbReport style={{color:theme.typography.primary.paragraphbody}} />
+                                    <Typography variant='h7' style={{color:theme.typography.primary.paragraphbody}}>Reports</Typography>
 
-
+                                     
                                     </NavLink>
                                 </li>
                                 <li className="rounded-lg mb-1 ">
                                     <NavLink
-                                        to="/deptadmin/billing"
+                                        to="/adv/billing"
                                         exact
                                         className="flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
                                         activeClassName="bg-gradient-to-tr from-light-blue-500 to-light-blue-700 text-white shadow-md"
                                     >
-                                        <TbReport style={{ color: theme.typography.primary.paragraphbody }} />
-                                        <Typography variant='h7' style={{ color: theme.typography.primary.paragraphbody }}>Bill</Typography>
+                                        {/* <Icon name="dashboard" size="2xl" /> */}
+                                        <TbReport  style={{color:theme.typography.primary.paragraphbody}}/>
+                                    <Typography variant='h7' style={{color:theme.typography.primary.paragraphbody}}>Bills</Typography>
 
-
+                                        
                                     </NavLink>
                                 </li>
-
-                                <li className="rounded-lg mb-1 ">
-                                    <NavLink
-                                        to="/deptadmin/invoiceregistration"
-                                        exact
-                                        className="flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
-                                        activeClassName="bg-gradient-to-tr from-light-blue-500 to-light-blue-700 text-white shadow-md"
-                                    >
-                                        <MdAppRegistration style={{ color: theme.typography.primary.paragraphbody }} />
-                                        <Typography variant='h7' style={{ color: theme.typography.primary.paragraphbody }}>Invoice Registration</Typography>
+                         
 
 
-                                    </NavLink>
-                                </li>
-                                {/* <li className="rounded-lg mb-1 ">
-                                    <NavLink
-                                        to="/deptadmin/chartforinvoice"
-                                        exact
-                                        className="flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
-                                        activeClassName="bg-gradient-to-tr from-light-blue-500 to-light-blue-700 text-white shadow-md"
-                                    >
-                                        <BarChartIcon style={{ color: theme.typography.primary.paragraphbody }} />
-                                        <Typography variant='h7' style={{ color: theme.typography.primary.paragraphbody }}>Invoice Chart</Typography>
+                         
 
-
-                                    </NavLink>
-                                </li> */}
-
-                                <li className="rounded-lg mb-1 ">
-                                    <NavLink
-                                        to="/deptadmin/invoicedetail"
-                                        exact
-                                        className="flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
-                                        activeClassName="bg-gradient-to-tr from-light-blue-500 to-light-blue-700 text-white shadow-md"
-                                    >
-                                        <BarChartIcon style={{ color: theme.typography.primary.paragraphbody }} />
-                                        <Typography variant='h7' style={{ color: theme.typography.primary.paragraphbody }}>Invoice Detail</Typography>
-
-                                    </NavLink>
-                                </li>
-                                <br></br>
-                                <br></br>
-                                <br></br>
-
-
-                                {/* {authStore.activity?.includes("TRANSACTION_SPECIFIC_REPORT") &&
-
-
-                                <li className="rounded-lg mb-1 ">
-                                    <NavLink
-                                        to="/admin/usermanagement"
-                                        exact
-                                        className="flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
-                                        activeClassName="bg-gradient-to-tr from-light-blue-500 to-light-blue-700 text-white shadow-md"
-                                    >
-                                        <TbReport />
-                                        User Management
-                                    </NavLink>
-                                </li>
-                            } */}
-                            </ul>
-                        </div>
+                         
+                        </ul>
                     </div>
                 </div>
+            </div>
 
-                {/* </div> */}
-            </Box>
             {/* </div> */}
         </>
     );

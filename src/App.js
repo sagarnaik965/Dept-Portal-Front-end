@@ -1,9 +1,6 @@
 import { Route } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
-
 import Report from './pages/Report';
-
-// Tailwind CSS Style Sheet
 import './assets/styles/tailwind.css';
 import ApplicationDetails from './components/ApplicationDetails';
 import ApplicationsInfo from './components/ApplicationsInfo';
@@ -27,29 +24,7 @@ import { useSelector } from 'react-redux';
 import 'react-toastify/dist/ReactToastify.css';
 import Login from './pages/Login';
 import { AppWiseoprTransactionBarchart } from './components/AppWiseOprTransactionBarchart';
-import AdminAppDetails from './components/AdminAppDetails'
-import AdminAllowedOperations from './components/AdminAllowedOperations';
-import Registration from './components/Registration';
-import AppRegistration from './components/AppRegistration';
-import KeyRegistration from './components/KeyRegistration';
-import KeyMapping from './components/KeyMapping';
-import KeyInfoUpdate from './components/KeyInfoUpdate'
-import ChartforInvoice from './components/ChartforInvoice';
-
-import invoiceReg from './components/InvoiceReg';
-import InvoiceDetail from './components/InvoiceDetail';
-import A from './components/A';
-import ToggleButtons from './components/ToggleButtons';
-
-
-// import PhotosnVideos from './components/PhotosnVideos';
-
-// import Card from '@mui/material';
-
-// import EmblaCarousel from "./EmblaCarousel";
-
-// import 'bootstrap/dist/css/bootstrap.min.css';
-
+import ErrorPage from './components/ErrorPage';
 
 const lightTheme = createMuiTheme({
   palette: {
@@ -65,9 +40,6 @@ const lightTheme = createMuiTheme({
   dashboardcount: {
     backgroundColor: 'linear-gradient(to right, #f7f6fa , #DEF1F7)'
   },
-  // dashboardiv:{
-  //   bgcolor:'linear-gradient(to right, lightgrey , lightblue)',
-  // },
   titleADV: {
     background: 'linear-gradient(to right, #330867 , #30CFD0 )'
   },
@@ -108,8 +80,6 @@ const lightTheme = createMuiTheme({
     backgroundColor: 'aliceblue'
   },
   typography: {
-    // color: 'white',
-    // fontSize: '10px',
     primary: {
       light: 'green',
       dark: 'red',
@@ -122,15 +92,15 @@ const lightTheme = createMuiTheme({
       paragraphbody: 'black',
       success: 'green',
       app: 'black',
-
+      radiobtn:' #0288d1',
+      alert:'light',
+      appnamedetail:'red'
 
     },
     secondary: {
       light: 'black'
     }
   },
-
-  // background: 'linear-gradient(to right, #330867 , #30CFD0 )'
 });
 
 const darkTheme = createMuiTheme({
@@ -156,7 +126,6 @@ const darkTheme = createMuiTheme({
   },
   typography: {
     color: 'yellow',
-    // fontSize: '10px',
     primary: {
       light: 'yellow',
       dark: 'yellow',
@@ -166,7 +135,10 @@ const darkTheme = createMuiTheme({
       mainheading: 'yellow',
       paragraphbody: 'white',
       success: 'yellow',
-      app: 'yellow'
+      app: 'yellow',
+      radiobtn:'white',
+      alert:'dark',
+      appnamedetail:'white'
     },
     secondary: {
       light: 'white'
@@ -216,9 +188,6 @@ const darkTheme = createMuiTheme({
   accordianbg: {
     backgroundColor: '#e0e0e0'
   }
-  // font:{
-  //   type:'dark'
-  // }
 
 });
 
@@ -226,34 +195,6 @@ const darkTheme = createMuiTheme({
 function App() {
   const realtheme = useTheme();
   let { authStore } = useSelector((state) => state);
-
-
-  // const googleTranslateRef = useRef();
-
-  // useEffect(() => {
-  //   const script = document.createElement("script");
-  //   script.src =
-  //     "//translate.google.com/translate_a/element.js?cb=onGoogleTranslateLoad";
-  //   document.body.appendChild(script);
-  //   window.onGoogleTranslateLoad = () => {
-  //     new window.google.translate.TranslateElement(
-  //       {
-  //         pageLanguage: "en",
-  //         includedLanguages:
-  //           "en,hi,mr",
-  //         layout: window.google.translate.TranslateElement.InlineLayout.HORIZONTAL,
-  //         autoDisplay: false,
-  //         gaTrack: true,
-  //         gaId: "UA-xxxxxxx-x",
-  //       },
-  //       googleTranslateRef.current
-  //     );
-  //   };
-  // }, []);
-  // const [theme, setTheme] = useState('light');
-
-  // const theme = useTheme();
-  // alert(theme)
 
   const [portaltype, setportaltype] = useState();
 
@@ -264,18 +205,10 @@ function App() {
     } else {
       setportaltype(false)
     }
-    // console.log(portaltype + "--------------------selected type")
-
-    // console.log(JSON.stringify(theme) + "-------------------theme")
-    // const stheme=localStorage.getItem('theme')
-    // setSelecttheme( stheme)
-    // console.log(selecttheme + "--------------------selected theme")
-
-
+    
   }, [])
 
   const [selecttheme, setSelectheme] = useState();
-  // const selectedtheme = "'" + selecttheme + "'";
   const [theme, setTheme] = useState('light');
   const [bodybgcolor, setbodybgcolor] = useState('white');
 
@@ -283,164 +216,64 @@ function App() {
     setTheme(theme === 'light' ? 'dark' : 'light');
     localStorage.setItem("theme", theme)
     setSelectheme(localStorage.getItem("theme"))
-    // alert(selectedtheme)
     if (theme === 'light') {
       setbodybgcolor('black')
     }
     else if (theme === 'dark') {
       setbodybgcolor('white')
     }
-
-    // alert(theme)
   };
 
   return (
     <>
-      {/* <div ref={googleTranslateRef} /> */}
-      {/* <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}> */}
-
-      {/* {authStore.type=='d' && <Sidebar/>}
-      {authStore.loginStatus &&
-            <>
-              <div className="md:ml-64">
-                <Route exact path="/admin/applicationDetails" component={ApplicationDetails} />
-                <Route exact path="/admin/applicationinfo/:appcode" component={props => <ApplicationsInfo {...props} />} />
-                <Route exact path="/admin/appdetails" component={AppDetails} />
-                <Route exact path="/adv" component={Dashboard} />
-                <Route exact path="/admin/reports" component={Report} />
-                <Route exact path="/admin/billing" component={Billing} />
-
-
-              </div>
-            </>
-
-
-          } */}
-      {/* <Route exact path="/dashboard" component={Navbar2} /> */}
+     
       <Navbar2 theme={theme} handleThemeChange={handleThemeChange} />
-
       <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
-
         <div style={{ backgroundColor: bodybgcolor }}>
-          {/* <Button onClick={handleThemeChange}>
-            {theme === 'dark' ? <DarkModeIcon style={{ color: 'white' }} /> : <DarkModeIcon style={{ color: 'black' }} />}
-          </Button> */}
-          {/* <Navbar2 /> */}
-          {/* <FontSizeSelector/> */}
-          {/* <Route exact path="/" component={HeaderAdv} /> */}
           <HeaderAdv />
-
-
-          {/* <Navbar3 /> */}
-          {/* <Route exact path="/" component={NavbarShrink} /> */}
           <NavbarShrink />
-
-          {/* <Navbarresp /> */}
-
-          {/* {authStore.loginStatus && <> */}
-
+          {/* <Sidebar /> */}
           {authStore.type == 'd' && <Sidebar />}
-
-
-          {/* </>  } */}
-
           {authStore.loginStatus &&
             <>
-              <div className="md:ml-64" style={{ marginTop: '12%' }}>
-                <Route exact path="/deptadmin/applicationDetails" component={ApplicationDetails} />
-                {/* <Route exact path="/admin/applicationinfo/:appcode" component={props => <ApplicationsInfo {...props} />} /> */}
-                <Route exact path="/deptadmin/applicationinfo/:appcode/:appName" component={props => <ApplicationsInfo {...props} />} />
-                <Route exact path="/deptadmin/adminappdetails" component={AdminAppDetails} />
-                <Route exact path="/deptadmin/allowedopr" component={AdminAllowedOperations} />
-                <Route exact path="/deptadmin/registration" component={Registration} />
-                <Route exact path="/deptadmin/appregistration" component={AppRegistration} />
-                <Route exact path="/deptadmin/keyregistration" component={KeyRegistration} />
-                <Route exact path="/deptadmin/keymapping" component={KeyMapping} />
-
-                <Route exact path="/deptadmin/keyinfoupdate" component={KeyInfoUpdate} />
-                <Route exact path="/deptadmin/appdetails" component={AppDetails} />
-
-                <Route exact path="/deptadmin" component={Dashboard} />
-                <Route exact path="/deptadmin/reports" component={Report} />
-                <Route exact path="/deptadmin/billing" component={Billing} />
-                <Route exact path="/deptadmin/reportsapp" component={ReportApp} />
-                <Route exact path="/deptadmin/billingapp" component={BillingApp} />
-                <Route exact path="/deptadmin/appcharts/:appcode" component={AppWiseoprTransactionBarchart} />
-                {/* <Route exact path="/deptadmin/chartforinvoice" component={ChartforInvoice} /> */}
-                <Route exact path="/deptadmin/invoicedetail" component={InvoiceDetail} />
-                <Route exact path="/deptadmin/invoiceregistration" component={invoiceReg} />
-                <Route exact path="/deptadmin/aa" component={A} />
-                <Route exact path="/deptadmin/toggle" component={ToggleButtons} />
-
-
+              <div className="md:ml-64" style={{ paddingTop:'12%'}}>
+                <Route exact path="/adv/applicationDetails" component={ApplicationDetails} />
+                <Route exact path="/adv/applicationinfo/:appcode/:appName" component={props => <ApplicationsInfo {...props} />} />
+                <Route exact path="/adv/appdetails" component={AppDetails} />
+                <Route exact path="/adv" component={Dashboard} />
+                <Route exact path="/adv/reportsapp" component={Report} />
+                <Route exact path="/adv/billingapp" component={Billing} />
+                <Route exact path="/adv/reports" component={ReportApp} />
+                <Route exact path="/adv/billing" component={BillingApp} />
+                <Route exact path="/adv/appcharts/:appcode" component={AppWiseoprTransactionBarchart} />
               </div>
             </>
           }
-          {!authStore.loginStatus &&
+
+      {!authStore.loginStatus &&
             <>
-              <div className="md:ml-64" >
-                <Route exact path="/deptadmin/LoginRequired" component={LoginRequired} />
-                <Route exact path="/deptadmin/applicationinfo/:appcode" component={LoginRequired} />
-                <Route exact path="/deptadmin/appdetails" component={LoginRequired} />
-                <Route exact path="/deptadmin" component={LoginRequired} />
-                <Route exact path="/deptadmin/reports" component={LoginRequired} />
-                <Route exact path="/deptadmin/billing" component={LoginRequired} />
-                <Route exact path="/deptadmin/reportsapp" component={LoginRequired} />
-                <Route exact path="/deptadmin/billingapp" component={LoginRequired} />
-
+              <div className="md:ml-64" style={{ paddingTop:'12%'}} >
+                <Route exact path="/adv/LoginRequired" component={LoginRequired} />
+                <Route exact path="/adv/applicationinfo/:appcode" component={LoginRequired} />
+                <Route exact path="/adv/appdetails" component={LoginRequired} />
+                <Route exact path="/adv" component={LoginRequired} />
+                <Route exact path="/adv/reports" component={ReportApp} />
+                <Route exact path="/adv/billing" component={BillingApp} />
+                <Route exact path="/adv/reportsapp" component={LoginRequired} />
+                <Route exact path="/adv/billingapp" component={LoginRequired} />
               </div>
             </>
           }
-          <Route exact path="/deptadmin/Login" component={Login} />
+          <Route exact path="/adv/Login" component={Login} />
           {/*=====================================After Login============================== */}
-          <Route exact path="/deptadmin/SignIn" component={SingIn} />
-          <Route path="/deptadmin/LoginRequired" component={LoginRequired} />
-
+          <Route exact path="/adv/SignIn" component={SingIn} />
+          <Route path="/adv/LoginRequired" component={LoginRequired} />
+          {/* <Route path="*" component={ErrorPage} /> */}
           {/* ////////////////////////////////////////////////////////////////////////////////// */}
-
-          {/* 
-          <Grid container spacing={0}>
-            <Grid item lg={9} xs={12} sm={9}>
-
-              <Route exact path="/adv" component={CarouselBtoT} />
-
-            </Grid>
-            <Grid item lg={3} xs={12} sm={3}>
-              <Route exact path="/adv" component={News} />
-
-            </Grid>
-          </Grid> */}
-
-          {/* <Route exact path="/" component={StaticDashboard} /> */}
-
-          {/* <br></br> */}
-
-
-
-
-          {/* <Grid container spacing={1}>
-            <Grid item lg={12} xs={12}>
-              <Route exact path="/adv" component={StaticDashboard} />
-            </Grid> */}
-
-
-          {/* <Route exact path="/adv" component={MultiCarousel} /> */}
-          {/* <Route exact path="/" component={PhotosnVideos} /> */}
-          {/* </Grid> */}
-
-          {/* <Route exact path="/adv" component={ChatBot} /> */}
-          {/* <Demo /> */}
-          {/* <Footer1 /> */}
-          {/* <Route exact path="/" component={Footer2} /> */}
           <Footer2 />
-
-
         </div>
       </ThemeProvider>
     </>
   );
 }
-
-
-
 export default App;

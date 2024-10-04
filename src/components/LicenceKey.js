@@ -16,101 +16,154 @@ import { positions } from '@mui/system';
 import { useTheme } from '@material-ui/core';
 //  import { MaskedText } from "react-native-mask-text";
 // import InputMask from "react-input-mask";
+import Baseurl from './Baseurl';
 
 
 export default function LicenceKey({ applklist }) {
 
-    const theme=useTheme()
-    // const history = useHistory();
+    const theme = useTheme()
+    const isMobile = window.innerWidth <= 768;
 
-    // const [appname, setappname] = useState();
-    // useEffect(() => {
-    //     setappname(localStorage.getItem('app_name'))
-    // })
-
-
-    // const handleBack=()=>{
-
-    //     history.push('/')
-    // }
 
     const lkmask = applklist.lk;
 
+    // var [difflkexpiryalert, setDifflkexpiryalert] = useState('10');
+    // const [alertflag, setAlertflag] = useState(false);
+
+    var [dayss, setdayss] = useState([])
+    var days = [];
+    var alertflag = false;
+    useEffect(() => {
+
+        // const updateUsers = [
+        //     // copy the current users state
+        //     ...users,
+        //     // now you can add a new object to add to the array
+        //     {
+        //       // using the length of the array for a unique id
+        //       id: users.length + 1,
+        //       // adding a new user name
+        //       name: "Steve",
+        //       // with a type of member
+        //       type: "member"
+        //     }
+        //   ];
+        //   // update the state to the updatedUsers
+        //   setUsers(updateUsers);
 
 
-    // const maskify = (lkmasked) => {
-    //     return lkmasked.split('').map((letter, idx) => idx < lkmasked.length - 4 ? '#' : letter).join('');
-    // }
+
+        //     const newFruits = fruitData.map((fruit) => fruit.name);
+        // setFruits([...fruits, ...newFruits]);
+
+        // alert(lkmask+"---------lkmask")
+        // applklist.map(
+        //     (element) => {
+        //         return (
+
+        //             setdayss([...dayss,element.diffexpirydateforalert])
+        //         )
+        //     }
+        // )
+        const newday = applklist.map((element) => element.diffexpirydateforalert)
+        setdayss([...dayss, ...newday])
+
+        newday.map((element) =>
+
+            element != 0 && element < 0 ? alertflag = true : alertflag = true
+            //  alert(element+"----------element")
+        )
+
+        // if (days != 0 && days < 0) {
+        //     alertflag = true
+        //     console.log(alertflag + "------------------alertflag")
+
+        // }
+
+
+
+    }, {})
+
+
 
     return (
 
         <>
-            <Grid container spacing={2} style={{ width: '100%', backgroundColor: theme.viewbgtable.backgroundColor }}> 
-             
+            {/* <div style={{ marginLeft: '10%', marginRight: '10%' }}> */}
+            <div style={{ marginLeft: isMobile ? 'auto' : '10%', marginRight: isMobile ? 'auto' : '10%' }}>
 
-
-                    {/* <div style={{ width: '675px', backgroundColor: 'aliceblue' }}> */}
-                        {/* <Card > */}
-
-                            {/* <CardHeader color="blue" contentPosition="none">
-                    <div className="w-full flex items-center justify-between">
-                        <h2 className="text-white text-2xl">Page Visits</h2>
-                        <Button
-                            color="transparent"
-                            buttonType="link"
-                            size="lg"
-                            style={{ padding: 0 }}
-                        >
-                            See More
-                        </Button>
-                    </div>
-                </CardHeader> */}
-                            {/* <div style={{ backgroundColor: 'aliceblue' }}> */}
-                            <Grid item lg={12} xs={12} align="center"  style={{ backgroundColor: theme.viewbgtable.backgroundColor }}>
-                                {/* <CardBody> */}
-                                    <div className="overflow-x-auto"  >
-                                        <table className="items-center w-full bg-transparent border-collapse">
-                                            <thead style={{ backgroundColor: theme.viewbg.backgroundColor }}>
-                                                <tr>
-                                                    <th className="px-2 text-blue-800 align-middle border-b border-solid border-white-0 py-3 text-sm whitespace-nowrap font-light text-center"  style={{ color: theme.typography.primary.mainheading }}>
-                                                        <b>Licence Key</b>
-                                                    </th>
-                                                    <th className="px-2 text-blue-800 align-middle border-b border-solid border-white-0 py-3 text-sm whitespace-nowrap font-light text-center"  style={{ color: theme.typography.primary.mainheading }}>
-                                                        <b>Licence Key Expiry Date</b>
-                                                    </th>
-
-
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-center" style={{ color: theme.typography.primary.paragraphbody }}>
-                                                        {applklist.lk}
+                <Grid container spacing={2} style={{ width: '100%', }}>
 
 
 
 
-                                                    </th>
-                                                    <td className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-center" style={{ color: theme.typography.primary.paragraphbody }}>
-                                                        {applklist.lkexpiry}
-                                                    </td>
+                    <Grid item lg={12} >
+                        <TableContainer component={Paper} style={{ backgroundColor: theme.viewbgtable.backgroundColor }}>
+                            <Table  aria-label="simple table">
+                                <TableHead style={{ backgroundColor: theme.viewbg.backgroundColor }}>
+                                    <TableRow>
+                                        <TableCell align="center" style={{ color: theme.typography.primary.paragraphbody,}}>  <b>Licence Key</b></TableCell>
+                                        <TableCell align="center" style={{ color: theme.typography.primary.paragraphbody,}}>  <b>Expiry Date</b></TableCell>
+                                        <TableCell align="center" style={{ color: theme.typography.primary.paragraphbody,}}>  <b>Status</b></TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
 
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                {/* </CardBody> */}
-                                </Grid>
-                            {/* </div> */}
+                                    {/* <h1>{days}</h1> */}
+
+                                    {applklist.map(
+                                        (element) => {
+                                            return (
+
+                                                <TableRow>
+                                                    {element.diffexpirydateforalert < 0 ?
+                                                        <TableCell align="center" style={{ color: 'red' }}>{element.lk}</TableCell>
+                                                        :
+                                                        <TableCell align="center" style={{ color: theme.typography.primary.paragraphbody,}}>{element.lk}</TableCell>
+                                                    }
+
+                                                    {/* <TableCell align="center">{element.lkexpiry}</TableCell> */}
+                                                    {element.diffexpirydateforalert < 0 ?
+
+                                                        <TableCell align="center" style={{ color: 'red' }}>{element.lkexpiry}</TableCell>
+
+                                                        :
+                                                        <TableCell align="center" style={{ color: theme.typography.primary.paragraphbody,}}>{element.lkexpiry}</TableCell>
+
+                                                    }
+                                                    {/* <TableCell align="center"> {alertflag?'':''}</TableCell>  */}
+
+                                                    {/* <TableCell align="center">
+
+                                                        {element.diffexpirydateforalert != 0 && element.diffexpirydateforalert < 0 ? 'expired' : element.diffexpirydateforalert + ' days remain to expiry'}
+                                                    </TableCell> */}
+                                                        {/* {element.diffexpirydateforalert != 0 && element.diffexpirydateforalert < 30 ? element.diffexpirydateforalert + ' days remain to expiry': ''}  */}
+
+                                                    {element.diffexpirydateforalert != 0 && element.diffexpirydateforalert < 0 ?
+                                                        <TableCell align="center" style={{ color: 'red' }}>expired</TableCell>
+                                                        :
+                                                        <TableCell align="center" style={{ color: theme.typography.primary.paragraphbody,}}>{element.diffexpirydateforalert} &nbsp;days are left until expiry</TableCell>
+                                                        // {element.diffexpirydateforalert = 0 ? '':<TableCell align="center">{element.diffexpirydateforalert} &nbsp;days remain to expiry</TableCell>}
+                                                    }
 
 
-                        {/* </Card> */}
 
-                    {/* </div> */}
+                                                </TableRow>
+
+                                            )
+                                        }
+                                    )
+                                    }
+
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+
+                    </Grid>
                 </Grid>
-           
+            </div>
         </>
 
-      
+
     );
 }
