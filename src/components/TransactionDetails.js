@@ -15,6 +15,8 @@ import { useDispatch } from "react-redux";
 import { typeApiActionforStatic } from "../store/authslice";
 import { useState } from "react";
 
+
+
 export default function TransactionDetails() {
 
     let dispatch = useDispatch();
@@ -57,7 +59,9 @@ export default function TransactionDetails() {
 
                 // console.log(deptlist)
                 // alert(deptlist.dept_name)
+                console.log("resss-----------------------------------------------------", res)
             }).catch(e => {
+                console.log("error", e)
             })
 
         //////////////////////////////////////////////////////////
@@ -116,16 +120,19 @@ export default function TransactionDetails() {
             }
         )
             .then(res => {
+                console.log(res + "000000000000000");
 
                 return res.json()
             })
             .then(
                 res => {
+                    console.log(res + "000000000000000");
                     setappwisetrans(res)
                 }
 
             )
             .catch(e => {
+                console.log("error", e)
             })
     }
 

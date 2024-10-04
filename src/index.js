@@ -10,10 +10,17 @@ import { useTranslation, initReactI18next } from "react-i18next";
 import tEng from './assets/locales/en/translation.json'
 import tHi from './assets/locales/hi/translation.json'
 import { useEffect } from 'react';
+// import i18next from 'https://deno.land/x/i18next/index.js'
+// or import i18next from 'https://raw.githubusercontent.com/i18next/i18next/master/src/index.js'
+// or import i18next from 'https://cdn.jsdelivr.net/gh/i18next/i18next/src/index.js'
+
 
 i18n
     .use(initReactI18next) // passes i18n down to react-i18next
-    .init({        
+    .init({
+        // the translations
+        // (tip move them in a JSON file and import them,
+        // or even better, manage them via a UI: https://react.i18next.com/guides/multiple-translation-files#manage-your-translations-with-a-management-gui)
         resources: {
             en: {
                 translation: tEng
@@ -34,13 +41,13 @@ i18n
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-    // <React.StrictMode>
+    <React.StrictMode>
         <Provider store={store}>
             <BrowserRouter>
                 <App />
             </BrowserRouter>
         </Provider>
-    // </React.StrictMode>
+    </React.StrictMode>
 );
 
 reportWebVitals();

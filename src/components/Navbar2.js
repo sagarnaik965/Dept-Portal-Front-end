@@ -48,6 +48,7 @@ export default function Navbar2({ theme, handleThemeChange }) {
         let currentlang = localStorage.getItem("lang")
         i18n.changeLanguage(currentlang)
 
+        // console.log(theme + "======================navbar2theme")
     }, [])
 
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -75,7 +76,10 @@ export default function Navbar2({ theme, handleThemeChange }) {
     const handleCloseEn = (l) => {
         // setAnchorEl(null);
         // setL('en')
+        // console.log(l)
+        // console.log(e.target.value)
         return () => {
+            console.log(l)
             i18n.changeLanguage(l)
             localStorage.setItem("lang", l)
         }
@@ -85,10 +89,12 @@ export default function Navbar2({ theme, handleThemeChange }) {
     const handleCloseHi = (l) => {
         // setAnchorEl(null);
         // setL('hi')
+        // console.log(l)
         // // return()=>{
         // //     alert(l)
         // //   }
         return () => {
+            console.log(l)
             i18n.changeLanguage(l)
             localStorage.setItem("lang", l)
         }
@@ -98,6 +104,7 @@ export default function Navbar2({ theme, handleThemeChange }) {
         // setfontsize('10px')
         return () => {
 
+            console.log(s)
             setfontsize(s)
             // window.location.reload(false)
             //    alert(fontsize)
@@ -107,6 +114,7 @@ export default function Navbar2({ theme, handleThemeChange }) {
     }
     const handleFontSizedefault = (s) => {
         return () => {
+            console.log(s)
             setfontsize(s)
             // window.location.reload(false)
             //  alert(fontsize)
@@ -261,12 +269,12 @@ export default function Navbar2({ theme, handleThemeChange }) {
                                     <TextDecreaseIcon style={{ width: '20px', top: '0px', color: 'black' }} />
                                 </MenuItem>
                                 <MenuItem onClick={(e) => (document.documentElement.style.fontSize = '16px', setAnchorElUser(null))}><FontDownloadIcon style={{ width: '20px', top: '0px', color: 'black' }} /></MenuItem>
-                                <MenuItem onClick={(e) => (document.documentElement.style.fontSize = '18px', setAnchorElUser(null))} ><TextIncreaseIcon style={{ width: '20px', top: '0px', color: 'black' }} /></MenuItem>
+                                <MenuItem onClick={(e) => (document.documentElement.style.fontSize = '19px', setAnchorElUser(null))} ><TextIncreaseIcon style={{ width: '20px', top: '0px', color: 'black' }} /></MenuItem>
                                 {/* ))} */}
                             </Menu>
                         </Box>
                     </Grid>
-                    <Grid item lg={1} xs={3} sm={3} md={3}>
+                    {/* <Grid item lg={1} xs={3} sm={3} md={3}>
                         <div align='center' style={{}}>
                             <Button onClick={handleThemeChange} style={{outline:'none'}}>
 
@@ -275,7 +283,7 @@ export default function Navbar2({ theme, handleThemeChange }) {
 
                             </Button>
                         </div>
-                    </Grid>
+                    </Grid> */}
 
                 </Grid>
             </Box>

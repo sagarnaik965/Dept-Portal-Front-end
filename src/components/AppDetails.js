@@ -35,13 +35,14 @@ import { useSelector } from 'react-redux';
 // import { Radio } from "@material-tailwind/react";
 //import { useNavigate } from "react-router-dom";
 import Baseurl from './Baseurl';
-import { Slide, toast, ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import BaseLocal from './BaseLocal';
 import { useTheme } from '@material-ui/core/styles';
 
 
 
 export default function AppDetails() {
+    window.scrollTo(0,0)
     const theme = useTheme();
 
     const [page, setPage] = useState('0');
@@ -66,42 +67,34 @@ export default function AppDetails() {
 
     // const navigate=useNavigate();
 
-    const [applk, setapplk] = useState([]);
+    const [applk, setapplk] = useState({});
     let { authStore } = useSelector((state) => state);
     const toastAlertWarning = (message) => {
 
-       
-            toast.warn(message,{
-                position: 'top-right',
-                style: {
-                  top: '130px',
-                },
-                autoClose: 5000,
-                transition: Slide,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: theme.typography.primary.alert,
-          
+        toast.warn(message, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
         });
 
     }
 
-    const [days, setdays] = useState('0')
 
     const handleManageLK = (e) => {
 
-        if (alertflag == '1' && alertflagapp == '1') {
-            toastAlertWarning('Please select Department List and Application List !')
+        if (alertflag == '1') {
+            toastAlertWarning('Please select Department List first!')
 
             // window.location.reload(false);
         }
-        // if (alertflagapp == '1') {
-        //     toastAlertWarning('Please select Application List first!')
-        // } 
-        else {
+        if (alertflagapp == '1') {
+            toastAlertWarning('Please select Application List first!')
+        } else {
             // history.push('/lk')
             setPage(2)
 
@@ -119,12 +112,6 @@ export default function AppDetails() {
 
 
             //  setPage(0);
-
-            //-------------------
-
-
-
-            //-----------------------
 
 
             fetch(Baseurl + "applk",
@@ -146,32 +133,14 @@ export default function AppDetails() {
                 })
                 .then(
                     res => {
+                        console.log(res);
                         setapplk(res)
                     }
 
                 )
                 .catch(e => {
+                    console.log("error", e)
                 })
-
-
-
-            // var days=0;
-            // alert(lkmask+"---------lkmask")
-            // applk.map(
-            //     (element) => {
-            //         return (
-
-            //             setdays(element.diffexpirydateforalert)
-            //             // setdays((demo) => [
-            //             //     ...demo,
-            //             //     element.diffexpirydateforalert
-            //             // ]
-            //             // )
-
-            //         )
-            //     }
-            // )
-            // console.log(days + "===========days")
 
 
         }
@@ -182,14 +151,14 @@ export default function AppDetails() {
 
     const handleOpr = (e) => {
 
-        if (alertflag == '1' && alertflagapp == '1') {
-            toastAlertWarning("Please select Department List and Application List !")
+        if (alertflag == '1') {
+            toastAlertWarning("Please select Department List first!")
 
             // window.location.reload(false);
         }
-        // if (alertflagapp == '1') {
-        //     toastAlertWarning('Please select Application List first!')
-        // }
+        if (alertflagapp == '1') {
+            toastAlertWarning('Please select Application List first!')
+        }
         else {
             setPage(3);
 
@@ -226,11 +195,13 @@ export default function AppDetails() {
                 })
                 .then(
                     res => {
+                        console.log(res);
                         setopr(res)
                     }
 
                 )
                 .catch(e => {
+                    console.log("error", e)
                 })
         }
 
@@ -246,14 +217,14 @@ export default function AppDetails() {
         // <Redirect to='/appdetails'  />
 
         // history.push('/appdetails')
-        if (alertflag == '1' && alertflagapp == '1') {
-            toastAlertWarning('Please select Department List and Application List!')
+        if (alertflag == '1') {
+            toastAlertWarning('Please select Department List first!')
 
             // window.location.reload(false);
         }
-        // if (alertflagapp == '1') {
-        //     toastAlertWarning('Please select Application List first!')
-        // }
+        if (alertflagapp == '1') {
+            toastAlertWarning('Please select Application List first!')
+        }
         else {
             setPage(1);
         }
@@ -421,11 +392,13 @@ export default function AppDetails() {
             })
             .then(
                 res => {
+                    console.log(res);
                     setappdetail(res)
                 }
 
             )
             .catch(e => {
+                console.log("error", e)
             })
 
 
@@ -508,9 +481,8 @@ export default function AppDetails() {
 
 
     useEffect(() => {
-
-        window.scrollTo(0, 0)
-
+       
+        window.scrollTo(0,0)
         /////////////////////////////get lc
         var CryptoJS = require("crypto-js");
 
@@ -530,7 +502,9 @@ export default function AppDetails() {
             }
         );
         decryptedText = decryptedData.toString(CryptoJS.enc.Utf8);
+        console.log("decryptedText = in billing " + decryptedText);
         setusername(decryptedText)
+        console.log(username + "---username")
         /////////////////////////////get username
 
         // -----------------------------------------code to check wheather user is logout or not----------------------------------------------
@@ -551,12 +525,15 @@ export default function AppDetails() {
                     return response;
                 })
                 .then((actualData) => {
+                    console.log(actualData)
+                    console.log(actualData.status)
                     if (actualData.status === 400) {
                         window.location.replace(BaseLocal + "Logout");
 
                     }
                 })
                 .catch((err) => {
+                    console.log(err.message);
                     if (err.message == "Failed to fetch") {
 
                         history.push("/adv/LoginRequired")
@@ -584,6 +561,7 @@ export default function AppDetails() {
             return r.json();
 
         }).then(resp => {
+            console.log(resp);
             setDepartment(resp);
 
         })
@@ -598,6 +576,7 @@ export default function AppDetails() {
         setAlertflag('0')
         // setAlertflagapp('0')
         setDept(e.target.value);
+        console.log(dept)
         // alert(e.target.value)
 
         // fetch("http://localhost:8082/deptlist")
@@ -629,6 +608,8 @@ export default function AppDetails() {
 
 
         let demo = JSON.stringify(e.target.value)
+        console.log(demo)
+        console.log(JSON.parse(demo))
         fetch(Baseurl + "applist",
             // fetch(`http://localhost:8082/dept/appupdate/${appcode}`,
 
@@ -648,11 +629,13 @@ export default function AppDetails() {
             })
             .then(
                 res => {
+                    console.log(res);
                     setapplist(res)
                 }
 
             )
             .catch(e => {
+                console.log("error", e)
             })
     }
 
@@ -707,40 +690,40 @@ export default function AppDetails() {
             <>
                 <ToastContainer />
 
-                {/* <br></br><br></br><br></br><br></br><br></br><br></br><br></br> */}
-                <div style={{ paddingBottom: '200px', backgroundColor: theme.tablecontainer.backgroundColor }}>
-                    <br></br>
-
+           {/* <br></br><br></br><br></br><br></br><br></br><br></br><br></br> */}
+                <div style={{ paddingBottom: '400px', backgroundColor:theme.tablecontainer.backgroundColor }}>
+                <br></br>
+                
                     <div                                                                                                                                                                             >
-
+                   
                         <CardBody >
-
+                          
                             <Grid container spacing={3} column={2} >
-
+                             
                                 <Grid item lg={6} >
-
-                                    <div align="right" style={{ position: 'relative' }}>
+                                   
+                                    <div align="right"style={{ position: 'relative'}}>
                                         <Box sx={{ minWidth: 180 }}>
-                                            <FormControl style={{ minWidth: 180 }} size='small' >
-                                                <InputLabel id="demo-simple-select-label" style={{ color: theme.typography.primary.app }}>Department List</InputLabel>
+                                            <FormControl style={{ minWidth: 180 }}  size='small' >
+                                                <InputLabel id="demo-simple-select-label" style={{color:theme.typography.primary.app}}>Department List</InputLabel>
                                                 <Select
                                                     labelId="demo-simple-select-label"
                                                     id="demo-simple-select"
                                                     // value={age}
-                                                    value={department.dept_code}
+                                                    value={department.dept_code} 
                                                     label="Department List"
                                                     onChange={handleDept}
-                                                    style={{ backgroundColor: theme.dropdownbg.backgroundColor, color: theme.typography.primary.paragraphbody }}
+                                                    style={{ backgroundColor:theme.dropdownbg.backgroundColor,color:theme.typography.primary.paragraphbody, }}
                                                 >
 
-                                                    <MenuItem value={department.dept_code} style={{ color: theme.typography.primary.paragraphbody, backgroundColor: theme.dropdownbg.backgroundColor }}> {department.dept_name} </MenuItem>
-
+                                                    <MenuItem value={department.dept_code}  style={{color:theme.typography.primary.paragraphbody,backgroundColor:theme.dropdownbg.backgroundColor}}> {department.dept_name} </MenuItem>
+                                               
                                                 </Select>
 
                                             </FormControl>
 
                                         </Box>
-
+                                       
                                     </div>
 
                                 </Grid>
@@ -748,20 +731,20 @@ export default function AppDetails() {
 
                                     <div align="left">
                                         <Box sx={{ minWidth: 180 }}>
-                                            <FormControl style={{ minWidth: 180 }} size='small' >
-                                                <InputLabel id="demo-simple-select-label" style={{ color: theme.typography.primary.app }}>Application List</InputLabel>
+                                            <FormControl style={{ minWidth: 180 }}  size='small' >
+                                                <InputLabel id="demo-simple-select-label" style={{color:theme.typography.primary.app}}>Application List</InputLabel>
                                                 <Select
                                                     labelId="demo-simple-select-label"
                                                     id="demo-simple-select"
                                                     value={appname}
                                                     label="Application List"
                                                     onChange={handleChange}
-                                                    style={{ backgroundColor: theme.dropdownbg.backgroundColor, color: theme.typography.primary.paragraphbody }}
+                                                    style={{ backgroundColor:theme.dropdownbg.backgroundColor,color:theme.typography.primary.paragraphbody }}
                                                 >
 
 
                                                     {applist.map((item, index) => (
-                                                        <MenuItem key={index} value={item?.appcode} style={{ color: theme.typography.primary.paragraphbody, backgroundColor: theme.dropdownbg.backgroundColor }}>
+                                                        <MenuItem key={index} value={item?.appcode}  style={{color:theme.typography.primary.paragraphbody,backgroundColor:theme.dropdownbg.backgroundColor}}>
                                                             {item?.appname}
                                                         </MenuItem>
                                                     ))
@@ -779,32 +762,31 @@ export default function AppDetails() {
                                     </div>
 
                                 </Grid>
-
+                 
                             </Grid>
-
+                       
 
                             <br></br>
                             <br></br>
-                            <Grid container columnSpacing={{ xs: 1, sm: 2, md: 5 }} column={5}>
+                            <Grid container spacing={2} column={5}>
                                 <Grid item lg={2}></Grid>
                                 <Grid item lg={3} >
                                     <div align="center">
-                                        <Button variant="contained" size="small" fullWidth startIcon={<AiOutlineFolderView color="primary" />} onClick={handleView}>Application Detail </Button>
+                                        <Button variant="contained" size="small" startIcon={<AiOutlineFolderView color="primary" />} onClick={handleView}>Application Detail </Button>
                                     </div>
                                 </Grid>
                                 <Grid item lg={3}>
                                     <div align="center">
-                                        <Button variant="contained" size="small" fullWidth startIcon={<MdOutlineManageAccounts color="primary" />} onClick={handleManageLK}>View Licence Key </Button>
+                                        <Button variant="contained" size="small" startIcon={<MdOutlineManageAccounts color="primary" />} onClick={handleManageLK}>View Licence Key </Button>
                                     </div>
                                 </Grid>
-                                <Grid item lg={3}>
+                                <Grid item lg={3} >
                                     <div align="center">
-                                        <Button variant="contained" size="small" fullWidth startIcon={<MdOutlineSettings color="primary" />} onClick={handleOpr} >Allowed Operations</Button>
+                                        <Button variant="contained" size="small" startIcon={<MdOutlineSettings color="primary" />} onClick={handleOpr} >Allowed Operations</Button>
                                     </div>
                                 </Grid>
 
-                                <Grid item lg={1} ></Grid>
-
+                                <Grid item lg={2} ></Grid>
                             </Grid>
                             <br></br>
 
@@ -829,65 +811,65 @@ export default function AppDetails() {
     }
     else if (page == '1') {
         return (
-            <>
-                <div style={{ paddingBottom: '100px' }}>
-                    <br></br>
-                    <ToastContainer />
+            <> 
+             <div style={{ paddingBottom: '400px' }}>
+                  <br></br>
+                <ToastContainer />
 
-                    <div style={{ paddingBottom: '150px', backgroundColor: theme.tablecontainer.backgroundColor }}>
-                        {/* <CardHeader color="purple" contentPosition="left">
+                <div style={{ paddingBottom: '400px',backgroundColor:theme.tablecontainer.backgroundColor }}>
+                    {/* <CardHeader color="purple" contentPosition="left">
                     <h2 className="text-white text-2xl">Application List</h2>
                 </CardHeader> */}
 
-                        <CardBody>
+                    <CardBody>
 
-                            <Grid container spacing={3} column={2}>
-                                <Grid item lg={6}>
+                        <Grid container spacing={3} column={2}>
+                            <Grid item lg={6}>
 
-                                    <div align="right">
-                                        <Box sx={{ minWidth: 180 }}>
-                                            <FormControl style={{ minWidth: 170, }} size='small' >
-                                                <InputLabel id="demo-simple-select-label" style={{ color: theme.typography.primary.app }}>Department List</InputLabel>
-                                                <Select
-                                                    labelId="demo-simple-select-label"
-                                                    id="demo-simple-select"
-                                                    // value={age}
-                                                    value={department.dept_code}
-                                                    label="Department List"
-                                                    onChange={handleChange}
-                                                    style={{ backgroundColor: theme.dropdownbg.backgroundColor, color: theme.typography.primary.paragraphbody }}
-                                                >
-                                                    <MenuItem value={department.dept_code} style={{ color: theme.typography.primary.paragraphbody, backgroundColor: theme.dropdownbg.backgroundColor }} > {department.dept_name} </MenuItem>
+                                <div align="right">
+                                    <Box sx={{ minWidth: 180 }}>
+                                        <FormControl style={{ minWidth: 170,}} size='small' >
+                                            <InputLabel id="demo-simple-select-label"  style={{color:theme.typography.primary.app}}>Department List</InputLabel>
+                                            <Select
+                                                labelId="demo-simple-select-label"
+                                                id="demo-simple-select"
+                                                // value={age}
+                                                value={department.dept_code}
+                                                label="Department List"
+                                                onChange={handleChange}
+                                                style={{ backgroundColor:theme.dropdownbg.backgroundColor,color:theme.typography.primary.paragraphbody}}
+                                            >
+                                                <MenuItem value={department.dept_code} style={{color:theme.typography.primary.paragraphbody,backgroundColor:theme.dropdownbg.backgroundColor}} > {department.dept_name} </MenuItem>
 
-                                                    {/* {
+                                                {/* {
                                                 deptlist.map((item, index) => (
                                                     <MenuItem key={index} value={item.dept_code} >
                                                         {item.dept_name}
                                                     </MenuItem>
                                                 ))
                                             } */}
-                                                </Select>
-                                            </FormControl>
-                                        </Box>
-                                    </div>
+                                            </Select>
+                                        </FormControl>
+                                    </Box>
+                                </div>
 
-                                </Grid>
-                                <Grid item lg={6}>
+                            </Grid>
+                            <Grid item lg={6}>
 
-                                    <div align="left">
-                                        <Box sx={{ minWidth: 180 }}>
-                                            <FormControl style={{ minWidth: 170 }} size='small' >
-                                                <InputLabel id="demo-simple-select-label" style={{ color: theme.typography.primary.app }}>Application List</InputLabel>
-                                                <Select
-                                                    labelId="demo-simple-select-label"
-                                                    id="demo-simple-select"
-                                                    // value={age}
-                                                    value={appname}
-                                                    label="Application List"
-                                                    onChange={handleChange}
-                                                    style={{ backgroundColor: theme.dropdownbg.backgroundColor, color: theme.typography.primary.paragraphbody }}
-                                                >
-                                                    {/* {Object.values(applist).map((value, index) => {
+                                <div align="left">
+                                    <Box sx={{ minWidth: 180 }}>
+                                        <FormControl style={{ minWidth: 170 }} size='small' >
+                                            <InputLabel id="demo-simple-select-label"  style={{color:theme.typography.primary.app}}>Application List</InputLabel>
+                                            <Select
+                                                labelId="demo-simple-select-label"
+                                                id="demo-simple-select"
+                                                // value={age}
+                                                value={appname}
+                                                label="Application List"
+                                                onChange={handleChange}
+                                                style={{ backgroundColor:theme.dropdownbg.backgroundColor,color:theme.typography.primary.paragraphbody}}
+                                            >
+                                                {/* {Object.values(applist).map((value, index) => {
                                                 return (
                                                     <div>
                                                         <MenuItem key={index}>{value.app_name}</MenuItem>
@@ -897,199 +879,195 @@ export default function AppDetails() {
                                             } */}
 
 
-                                                    {applist.map((item, index) => (
-                                                        <MenuItem key={index} value={item.appcode} style={{ color: theme.typography.primary.paragraphbody, backgroundColor: theme.dropdownbg.backgroundColor }} >
-                                                            {item.appname}
-                                                        </MenuItem>
-                                                    ))
-                                                    }
+                                                {applist.map((item, index) => (
+                                                    <MenuItem key={index} value={item.appcode} style={{color:theme.typography.primary.paragraphbody,backgroundColor:theme.dropdownbg.backgroundColor}} >
+                                                        {item.appname}
+                                                    </MenuItem>
+                                                ))
+                                                }
 
-                                                </Select>
-                                            </FormControl>
-                                        </Box>
-                                    </div>
-
-                                </Grid>
-                            </Grid>
-                            <br></br>
-
-                            <Grid container columnSpacing={{ xs: 1, sm: 2, md: 5 }} column={5}>
-                                <Grid item lg={2}></Grid>
-                                <Grid item lg={3} >
-                                    <div align="center">
-                                        <Button variant="contained" size="small" fullWidth startIcon={<AiOutlineFolderView color="primary" />} onClick={handleView}>Application Detail </Button>
-                                    </div>
-                                </Grid>
-                                <Grid item lg={3}>
-                                    <div align="center">
-                                        <Button variant="contained" size="small" fullWidth startIcon={<MdOutlineManageAccounts color="primary" />} onClick={handleManageLK}>View Licence Key </Button>
-                                    </div>
-                                </Grid>
-                                <Grid item lg={3} >
-                                    <div align="center">
-                                        <Button variant="contained" size="small" fullWidth startIcon={<MdOutlineSettings color="primary" />} onClick={handleOpr} >Allowed Operations</Button>
-                                    </div>
-                                </Grid>
-
-                                <Grid item lg={2} ></Grid>
-                            </Grid>
-
-                            <br></br>
-                            <br></br>
-                            <br></br>
-
-
-
-                            <Grid >
-
-                                <Grid container spacing={2}  >
-                                    <Grid item lg={12} xs={12} align="center" >
-                                        <View appdetails={appdetail} />
-                                    </Grid>
-                                </Grid>
-
-
-
-
-
-
-
+                                            </Select>
+                                        </FormControl>
+                                    </Box>
+                                </div>
 
                             </Grid>
-                        </CardBody>
-                        {/* <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br> */}
+                        </Grid>
+                        <br></br>
 
-                    </div>
-                </div></>
+                        <Grid container spacing={2} column={5}>
+                            <Grid item lg={2}></Grid>
+                            <Grid item lg={3} >
+                                <div align="center">
+                                    <Button variant="contained" size="small" startIcon={<AiOutlineFolderView color="primary" />} onClick={handleView}>Application Detail </Button>
+                                </div>
+                            </Grid>
+                            <Grid item lg={3}>
+                                <div align="center">
+                                    <Button variant="contained" size="small" startIcon={<MdOutlineManageAccounts color="primary" />} onClick={handleManageLK}>View Licence Key </Button>
+                                </div>
+                            </Grid>
+                            <Grid item lg={3} >
+                                <div align="center">
+                                    <Button variant="contained" size="small" startIcon={<MdOutlineSettings color="primary" />} onClick={handleOpr} >Allowed Operations</Button>
+                                </div>
+                            </Grid>
+
+                            <Grid item lg={2} ></Grid>
+                        </Grid>
+
+                        <br></br>
+                        <br></br>
+                        <br></br>
+
+
+
+                        <Grid >
+                           
+                            <Grid container spacing={2}  >
+                                <Grid item lg={12} xs={12} align="center" >
+                                    <View appdetails={appdetail} />
+                                </Grid>
+                            </Grid>
+                        
+
+
+                           
+
+
+
+
+                        </Grid>
+                    </CardBody>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+
+                </div>
+            </div></>
         );
     }
     else if (page == '2') {
         return (
-            <>
-                <div style={{ paddingBottom: '100px' }}>
-                    <br></br>
-                    <ToastContainer />
-                    <div style={{ paddingBottom: '200px', backgroundColor: theme.tablecontainer.backgroundColor }}>
-                        {/* <Card> */}
-                        {/* <CardHeader color="purple" contentPosition="left">
+            <> 
+             <div style={{ paddingBottom: '400px' }}>
+                <br></br>
+                <ToastContainer />
+                <div style={{ paddingBottom: '400px',backgroundColor:theme.tablecontainer.backgroundColor }}>
+                {/* <Card> */}
+                    {/* <CardHeader color="purple" contentPosition="left">
                     <h2 className="text-white text-2xl">Application List</h2>
                 </CardHeader> */}
-                        <CardBody>
+                    <CardBody>
 
 
-                            <Grid container spacing={3} column={2}>
-                                <Grid item lg={6}>
+                        <Grid container spacing={3} column={2}>
+                            <Grid item lg={6}>
+                          
+                                <div align="right">
+                                    <Box sx={{ minWidth: 180 }}>
+                                        <FormControl style={{ minWidth: 170 }}  size='small' >
+                                            <InputLabel id="demo-simple-select-label"  style={{color:theme.typography.primary.app}}>Department List</InputLabel>
+                                            <Select
+                                                labelId="demo-simple-select-label"
+                                                id="demo-simple-select"
+                                                // value={age}
+                                                value={department.dept_code}
+                                                label="Department List"
+                                                onChange={handleChange}
+                                                style={{ backgroundColor:theme.dropdownbg.backgroundColor,color:theme.typography.primary.paragraphbody }}
+                                            >
+                                                <MenuItem value={department.dept_code} style={{color:theme.typography.primary.paragraphbody,backgroundColor:theme.dropdownbg.backgroundColor}} > {department.dept_name} </MenuItem>
+                                             
 
-                                    <div align="right">
-                                        <Box sx={{ minWidth: 180 }}>
-                                            <FormControl style={{ minWidth: 170 }} size='small' >
-                                                <InputLabel id="demo-simple-select-label" style={{ color: theme.typography.primary.app }}>Department List</InputLabel>
-                                                <Select
-                                                    labelId="demo-simple-select-label"
-                                                    id="demo-simple-select"
-                                                    // value={age}
-                                                    value={department.dept_code}
-                                                    label="Department List"
-                                                    onChange={handleChange}
-                                                    style={{ backgroundColor: theme.dropdownbg.backgroundColor, color: theme.typography.primary.paragraphbody }}
-                                                >
-                                                    <MenuItem value={department.dept_code} style={{ color: theme.typography.primary.paragraphbody, backgroundColor: theme.dropdownbg.backgroundColor }} > {department.dept_name} </MenuItem>
+                                            </Select>
+                                        </FormControl>
+                                    </Box>
+                                </div>
 
-
-                                                </Select>
-                                            </FormControl>
-                                        </Box>
-                                    </div>
-
-                                </Grid>
-                                <Grid item lg={6}>
-
-
-                                    <div align="left">
-                                        <Box sx={{ minWidth: 180 }}>
-                                            <FormControl style={{ minWidth: 170 }} >
-                                                <InputLabel id="demo-simple-select-label" style={{ color: theme.typography.primary.app }}>Application List</InputLabel>
-                                                <Select
-                                                    labelId="demo-simple-select-label"
-                                                    id="demo-simple-select"
-                                                    // value={age}
-                                                    value={appname}
-                                                    label="Application List"
-                                                    onChange={handleChange}
-                                                    style={{ height: '43px', backgroundColor: theme.dropdownbg.backgroundColor, color: theme.typography.primary.paragraphbody }}
-                                                >
-
-
-
-                                                    {applist.map((item, index) => (
-                                                        <MenuItem key={index} value={item.appcode} style={{ color: theme.typography.primary.paragraphbody, backgroundColor: theme.dropdownbg.backgroundColor }}>
-                                                            {item.appname}
-                                                        </MenuItem>
-                                                    ))
-                                                    }
-
-                                                </Select>
-                                            </FormControl>
-                                        </Box>
-                                    </div>
-
-                                </Grid>
                             </Grid>
-                            <br></br>
+                            <Grid item lg={6}>
+                              
 
-                            <Grid container columnSpacing={{ xs: 1, sm: 2, md: 5 }} column={5}>
-                                <Grid item lg={2}></Grid>
-                                <Grid item lg={3} >
-                                    <div align="center">
-                                        <Button variant="contained" size="small" fullWidth startIcon={<AiOutlineFolderView color="primary" />} onClick={handleView}>Application Detail </Button>
-                                    </div>
-                                </Grid>
-                                <Grid item lg={3}>
-                                    <div align="center">
-                                        <Button variant="contained" size="small" fullWidth startIcon={<MdOutlineManageAccounts color="primary" />} onClick={handleManageLK}>View Licence Key </Button>
-                                    </div>
-                                </Grid>
-                                <Grid item lg={3} >
-                                    <div align="center">
-                                        <Button variant="contained" size="small" fullWidth startIcon={<MdOutlineSettings color="primary" />} onClick={handleOpr} >Allowed Operations</Button>
-                                    </div>
-                                </Grid>
+                                <div align="left">
+                                    <Box sx={{ minWidth: 180 }}>
+                                        <FormControl style={{ minWidth: 170 }} >
+                                            <InputLabel id="demo-simple-select-label"  style={{color:theme.typography.primary.app}}>Application List</InputLabel>
+                                            <Select
+                                                labelId="demo-simple-select-label"
+                                                id="demo-simple-select"
+                                                // value={age}
+                                                value={appname}
+                                                label="Application List"
+                                                onChange={handleChange}
+                                                style={{ height: '43px',backgroundColor:theme.dropdownbg.backgroundColor,color:theme.typography.primary.paragraphbody  }}
+                                            >
+                                             
 
-                                <Grid item lg={2} ></Grid>
+
+                                                {applist.map((item, index) => (
+                                                    <MenuItem key={index} value={item.appcode} style={{color:theme.typography.primary.paragraphbody,backgroundColor:theme.dropdownbg.backgroundColor}}>
+                                                        {item.appname}
+                                                    </MenuItem>
+                                                ))
+                                                }
+
+                                            </Select>
+                                        </FormControl>
+                                    </Box>
+                                </div>
+
+                            </Grid>
+                        </Grid>
+                        <br></br>
+
+                        <Grid container spacing={2} column={5}>
+                            <Grid item lg={2}></Grid>
+                            <Grid item lg={3} >
+                                <div align="center">
+                                    <Button variant="contained" size="small" startIcon={<AiOutlineFolderView color="primary" />} onClick={handleView}>Application Detail </Button>
+                                </div>
+                            </Grid>
+                            <Grid item lg={3}>
+                                <div align="center">
+                                    <Button variant="contained" size="small" startIcon={<MdOutlineManageAccounts color="primary" />} onClick={handleManageLK}>View Licence Key </Button>
+                                </div>
+                            </Grid>
+                            <Grid item lg={3} >
+                                <div align="center">
+                                    <Button variant="contained" size="small" startIcon={<MdOutlineSettings color="primary" />} onClick={handleOpr} >Allowed Operations</Button>
+                                </div>
                             </Grid>
 
-                            <br></br>
-                            <br></br>
-                            <br></br>
+                            <Grid item lg={2} ></Grid>
+                        </Grid>
+
+                        <br></br>
+                        <br></br>
+                        <br></br>
 
 
 
 
 
 
+                     
+                        <Grid>
+                            <Grid item lg={12} align='center'>
+                                {/* <div align="center"> */}
+                                <LicenceKey applklist={applk} />
 
-                            <Grid>
-                                <Grid item lg={12} align='center'>
-                                    {/* <div align="center"> */}
-                                    <LicenceKey applklist={applk} />
+                          
 
-
-
-
-
-
-
-                                </Grid>
                             </Grid>
-                        </CardBody>
-                        {/* <br></br>
+                        </Grid>
+                    </CardBody>
+                    <br></br>
                     <br></br>
                     <br></br>
                     <br></br>
@@ -1098,136 +1076,136 @@ export default function AppDetails() {
                     <br></br><br></br>
                     <br></br>
                     <br></br>
-                    <br></br> */}
-                    </div>
+                    <br></br>
                 </div>
+            </div>
             </>
         );
     }
 
     else if (page == '3') {
         return (
-            <>
-                <div style={{ paddingBottom: '400px' }}>
-                    <ToastContainer />
+            <> 
+             <div style={{ paddingBottom: '400px' }}>
+                <ToastContainer />
+                <br></br>
+
+                <div>
+                 
+                    <CardBody>
+
+
+                        <Grid container spacing={3} column={2}>
+                            <Grid item lg={6}>
+                             
+
+                                <div align="right">
+                                    <Box sx={{ minWidth: 180 }}>
+                                        <FormControl style={{ minWidth: 170 }} size='small' >
+                                            <InputLabel id="demo-simple-select-label"  style={{color:theme.typography.primary.app}}>Department List</InputLabel>
+                                            <Select
+                                                labelId="demo-simple-select-label"
+                                                id="demo-simple-select"
+                                                // value={age}
+                                                value={department.dept_code}
+                                                label="Department List"
+                                                onChange={handleChange}
+                                                style={{ backgroundColor:theme.dropdownbg.backgroundColor,color:theme.typography.primary.paragraphbody  }}
+                                            >
+                                                <MenuItem value={department.dept_code} style={{color:theme.typography.primary.paragraphbody,backgroundColor:theme.dropdownbg.backgroundColor}} > {department.dept_name} </MenuItem>
+                                               
+
+                                            </Select>
+                                        </FormControl>
+                                    </Box>
+                                </div>
+
+                            </Grid>
+                            <Grid item lg={6}>
+                               
+                                <div align="left">
+                                    <Box sx={{ minWidth: 180 }}>
+                                        <FormControl style={{ minWidth: 170 }} size='small' >
+                                            <InputLabel id="demo-simple-select-label"  style={{color:theme.typography.primary.app}}>Application List</InputLabel>
+                                            <Select
+                                                labelId="demo-simple-select-label"
+                                                id="demo-simple-select"
+                                                // value={age}
+                                                value={appname}
+                                                label="Application List"
+                                                onChange={handleChange}
+                                                style={{ backgroundColor:theme.dropdownbg.backgroundColor,color:theme.typography.primary.paragraphbody }}
+                                            >
+                                              
+
+
+                                                {applist.map((item, index) => (
+                                                    <MenuItem key={index} value={item.appcode} style={{color:theme.typography.primary.paragraphbody,backgroundColor:theme.dropdownbg.backgroundColor}}>
+                                                        {item.appname}
+                                                    </MenuItem>
+                                                ))
+                                                }
+
+                                            </Select>
+                                        </FormControl>
+                                    </Box>
+                                </div>
+
+                            </Grid>
+                        </Grid>
+                        <br></br>
+
+                        <Grid container spacing={2} column={5}>
+                            <Grid item lg={2}></Grid>
+                            <Grid item lg={3} >
+                                <div align="center">
+                                    <Button variant="contained" size="small" startIcon={<AiOutlineFolderView color="primary" />} onClick={handleView}>Application Detail </Button>
+                                </div>
+                            </Grid>
+                            <Grid item lg={3}>
+                                <div align="center">
+                                    <Button variant="contained" size="small" startIcon={<MdOutlineManageAccounts color="primary" />} onClick={handleManageLK}>View Licence Key </Button>
+                                </div>
+                            </Grid>
+                            <Grid item lg={3} >
+                                <div align="center">
+                                    <Button variant="contained" size="small" startIcon={<MdOutlineSettings color="primary" />} onClick={handleOpr} >Allowed Operations</Button>
+                                </div>
+                            </Grid>
+
+                            <Grid item lg={2} ></Grid>
+                        </Grid>
+
+                        <br></br>
+                        <br></br>
+                        <br></br>
+
+
+
+
+
+
+                        <Grid>
+                            <Grid item lg={12} align='center'>
+                                {/* <div align="center"> */}
+                                <AllowedOperations Operations={opr} />
+
+                               
+                            </Grid>
+                        </Grid>
+                    </CardBody>
                     <br></br>
-
-                    <div>
-
-                        <CardBody>
-
-
-                            <Grid container spacing={3} column={2}>
-                                <Grid item lg={6}>
-
-
-                                    <div align="right">
-                                        <Box sx={{ minWidth: 180 }}>
-                                            <FormControl style={{ minWidth: 170 }} size='small' >
-                                                <InputLabel id="demo-simple-select-label" style={{ color: theme.typography.primary.app }}>Department List</InputLabel>
-                                                <Select
-                                                    labelId="demo-simple-select-label"
-                                                    id="demo-simple-select"
-                                                    // value={age}
-                                                    value={department.dept_code}
-                                                    label="Department List"
-                                                    onChange={handleChange}
-                                                    style={{ backgroundColor: theme.dropdownbg.backgroundColor, color: theme.typography.primary.paragraphbody }}
-                                                >
-                                                    <MenuItem value={department.dept_code} style={{ color: theme.typography.primary.paragraphbody, backgroundColor: theme.dropdownbg.backgroundColor }} > {department.dept_name} </MenuItem>
-
-
-                                                </Select>
-                                            </FormControl>
-                                        </Box>
-                                    </div>
-
-                                </Grid>
-                                <Grid item lg={6}>
-
-                                    <div align="left">
-                                        <Box sx={{ minWidth: 180 }}>
-                                            <FormControl style={{ minWidth: 170 }} size='small' >
-                                                <InputLabel id="demo-simple-select-label" style={{ color: theme.typography.primary.app }}>Application List</InputLabel>
-                                                <Select
-                                                    labelId="demo-simple-select-label"
-                                                    id="demo-simple-select"
-                                                    // value={age}
-                                                    value={appname}
-                                                    label="Application List"
-                                                    onChange={handleChange}
-                                                    style={{ backgroundColor: theme.dropdownbg.backgroundColor, color: theme.typography.primary.paragraphbody }}
-                                                >
-
-
-
-                                                    {applist.map((item, index) => (
-                                                        <MenuItem key={index} value={item.appcode} style={{ color: theme.typography.primary.paragraphbody, backgroundColor: theme.dropdownbg.backgroundColor }}>
-                                                            {item.appname}
-                                                        </MenuItem>
-                                                    ))
-                                                    }
-
-                                                </Select>
-                                            </FormControl>
-                                        </Box>
-                                    </div>
-
-                                </Grid>
-                            </Grid>
-                            <br></br>
-
-                            <Grid container columnSpacing={{ xs: 1, sm: 2, md: 5 }} column={5}>
-                                <Grid item lg={2}></Grid>
-                                <Grid item lg={3} >
-                                    <div align="center">
-                                        <Button variant="contained" size="small" fullWidth startIcon={<AiOutlineFolderView color="primary" />} onClick={handleView}>Application Detail</Button>
-                                    </div>
-                                </Grid>
-                                <Grid item lg={3}>
-                                    <div align="center">
-                                        <Button variant="contained" size="small" fullWidth startIcon={<MdOutlineManageAccounts color="primary" />} onClick={handleManageLK}>View Licence Key</Button>
-                                    </div>
-                                </Grid>
-                                <Grid item lg={3} >
-                                    <div align="center">
-                                        <Button variant="contained" size="small" fullWidth startIcon={<MdOutlineSettings color="primary" />} onClick={handleOpr} >Allowed Operations</Button>
-                                    </div>
-                                </Grid>
-
-                                <Grid item lg={2} ></Grid>
-                            </Grid>
-
-                            <br></br>
-                            <br></br>
-                            <br></br>
-
-
-
-
-
-
-                            <Grid>
-                                <Grid item lg={12} align='center'>
-                                    {/* <div align="center"> */}
-                                    <AllowedOperations Operations={opr} />
-
-
-                                </Grid>
-                            </Grid>
-                        </CardBody>
-                        <br></br>
-                        <br></br>
-                        <br></br>
-                        <br></br>
-                        <br></br>
-                        <br></br>
-                        <br></br><br></br>
-                        <br></br>
-                        <br></br>
-                        <br></br>
-                    </div>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br><br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
                 </div>
+            </div>
             </>
 
         );

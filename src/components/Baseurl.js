@@ -1,23 +1,26 @@
 import React from 'react'
 
-// ---------------------------------Amey--------------------------------------------------------------
-//const Baseurl ="http://10.210.8.167:8082/dept/";
+// const Baseurl ="http://10.210.9.97:8082/dept/";
+// const Baseurladmin ="http://10.210.9.97:8082/admin/";
+
+// const Baseurl ="http://10.210.4.178:8082/dept/"; 
+
+const Baseurl ="http://localhost:8082/dept/"; //eclipse local
+
+// const Baseurl ="http://localhost:8082/deptadmin/dept/";
+
+// const Baseurl ="http://10.210.4.178:8080/deptadmin/dept/"; //local tomcat
 
 
-// ---------------------------------local-----------------------------------------------------------
-// const Baseurl ="http://10.210.8.90:8082/dept/";
-const Baseurl ="http://localhost:8082/dept/";
-
-
-// ----------prachi------
-//  const Baseurl ="http://10.210.9.109:8082/dept/";
-
-// ---------------------------------War-----------------------------------------------------------
-// const Baseurl ="http://localhost:8082/department/dept/";
+// const Baseurl ="https://advservice.epramaan.gov.in/dynamic/dept/";
 
 
 // ---------------------------------prod-----------------------------------------------------------
-// const Baseurl ="https://advservice.epramaan.gov.in/department/dept/";ipconfig /all
 
+// const Baseurl ="https://advservice.epramaan.gov.in/admin/dept/";
+
+//----------------------------staging------------
+
+// const Baseurl ="https://sp.epramaan.in:8038/admin/dept/";
 
 export default Baseurl
