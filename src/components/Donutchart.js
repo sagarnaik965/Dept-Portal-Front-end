@@ -1,16 +1,23 @@
 import { useTheme } from '@material-ui/core/styles';
+
 import React, { useEffect, useState } from "react";
 import Chart from 'react-apexcharts';
 import Baseurl from "./Baseurl";
-import '../assets/css/donutchart.css'
+import './donutchart.css'
+
+
 function Donutchart() {
     const theme = useTheme();
-    const [oprNames, setOprNames] = useState(['getuid', 'storeuid', 'activate', "deactivate"]);
-    const [counts, setCounts] = useState([0, 0, 0, 0]);
+    const [contryname, setCountryname] = useState(['getuid', 'storeuid', 'activate', "deactivate"]);
+    const [medal, setMedal] = useState([11888884, 22555, 3003, 44]);
     var decryptedText = "";
+
     useEffect(() => {
+
+
         /////////////////////////////get lc
         var CryptoJS = require("crypto-js");
+
         var base64Key = "QWJjZGVmZ2hpamtsbW5vcA==";
         var key = CryptoJS.enc.Base64.parse(base64Key);
         var plaintText = "x";
@@ -28,12 +35,16 @@ function Donutchart() {
                     padding: CryptoJS.pad.Pkcs7,
                 }
             );
+
             decryptedText = decryptedData.toString(CryptoJS.enc.Utf8);
         }
+        // console.log("decryptedText = in dashboard " + decryptedText);
         /////////////////////////////get username
+
+
         const getdata = async () => {
-            const oprname = [];
-            const count = [];
+            const countryname = [];
+            const getmedal = [];
             const reqData = await fetch(Baseurl + "DonutChart", {
                 method: "post",
                 body: decryptedText,
@@ -45,11 +56,13 @@ function Donutchart() {
             })
             const resData = await reqData.json();
             for (let i = 0; i < resData.length; i++) {
-                oprname.push(resData[i].name);
-                count.push(parseInt(resData[i].y));
+                countryname.push(resData[i].name);
+                getmedal.push(parseInt(resData[i].y));
             }
-            setOprNames(oprname);
-            setCounts(count);
+            setCountryname(countryname);
+            setMedal(getmedal);
+
+
         }
         getdata();
     }, []);
@@ -61,14 +74,14 @@ function Donutchart() {
                     type="donut"
                     // width={350}
                     height={215}
-                    series={counts}
+                    series={medal}
 
                     options={{
-                        labels: oprNames,
+                        labels: contryname,
 
 
                         title: {
-                            // text:"counts Country Name",
+                            // text:"Medal Country Name",
                             // align:"center",
                         },
 
@@ -121,3 +134,32 @@ function Donutchart() {
 }
 export default Donutchart;
 
+
+// options={{
+//     labels: contryname,
+//     title: {
+//       // text:"Medal Country Name",
+//       // align:"center",
+//     },
+//     plotOptions: {
+//       pie: {
+//         donut: {
+//           labels: {
+//             show: true,
+//             total: {
+//               show: true,
+//               showAlways: true,
+//               fontSize: 20,
+//               color: '#f90000',
+//             },
+//             style: {
+//               colors: ['#000', '#111', '#222', '#333'], // set the color of country names
+//             },
+//           },
+//         },
+//       },
+//     },
+//     dataLabels: {
+//       enabled: true,
+//     }
+//   }}

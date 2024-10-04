@@ -1,24 +1,17 @@
 import * as React from 'react';
-
+// import { Card } from '@mui/material';
+// import Card from '@material-tailwind/react/Card';
+// import CardRow from '@material-tailwind/react/CardRow';
+// import CardHeader from '@material-tailwind/react/CardHeader';
+// import CardStatus from '@material-tailwind/react/CardStatus';
 import Card from '@material-tailwind/react/Card';
 import CardBody from '@material-tailwind/react/CardBody';
 import { Grid } from '@mui/material';
 import { Typography, useTheme } from '@material-ui/core';
 import TextField from '@mui/material/TextField';
 
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-
-
 
 export default function View({ appdetails }) {
-
-    const isMobile = window.innerWidth <= 768;
 
     const theme = useTheme()
     const styles = theme => ({
@@ -29,75 +22,95 @@ export default function View({ appdetails }) {
 
     return (
         <>
-            {/* <div style={{ marginLeft: '10%', marginRight: '10%' }}> */}
 
-            <div style={{ marginLeft: isMobile ? 'auto' : '10%', marginRight: isMobile ? 'auto' : '10%' }}>
-
-            {/* <div style={{ marginLeft:'0px', marginRight: '0px' }}> */}
-
-                <Grid container spacing={2} style={{ width: '100%' }}>
+            <Grid container spacing={2} style={{ width: '100%', backgroundColor: theme.viewbgtable.backgroundColor }}>
 
 
 
-              
-                    <Grid item lg={12} >
-                        <TableContainer component={Paper} style={{ backgroundColor: theme.viewbgtable.backgroundColor }}>
-                            <Table  aria-label="simple table">
-                                <TableHead style={{ backgroundColor: theme.viewbg.backgroundColor }}>
-                                    <TableRow>
-                                        <TableCell align="center" style={{ color: theme.typography.primary.paragraphbody,}}>  <b>Email</b></TableCell>
-                                        <TableCell align="center" style={{ color: theme.typography.primary.paragraphbody,}}>  <b>Description</b></TableCell>
-                                        <TableCell align="center" style={{ color: theme.typography.primary.paragraphbody,}}>  <b>Application Name</b></TableCell>
-                                       
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                  
-                                    <TableRow
-                                    >
-                                        <TableCell align="center"  style={{ verticalAlign: 'top', color: theme.typography.primary.paragraphbody, }}>
-                                        {appdetails.email}
-                                        </TableCell>
+                {/* <div > */}
 
-                                        <TableCell align="center"  style={{ verticalAlign: 'top' }}>
-                                        <TextField
-                                               
-                                                id="standard-multiline-static"
-                                                // label="Multiline"
-                                                multiline
-                                                rows={4}
-                                                defaultValue={appdetails.desc}
-                                                variant="standard"
-                                                InputProps={{
-                                                    readOnly: true,
-                                                }}
-                                                sx={{
-                                                    "& .MuiInputBase-root": {
-                                                        color: theme.typography.primary.paragraphbody,
-                                                        fontSize: '14px',
-                                                     
-                                                    },
 
-                                                }}
+                    <Grid item lg={12} style={{ backgroundColor: theme.viewbgtable.backgroundColor ,width: '100%'}}>
+                        {/* <div style={{ backgroundColor: 'aliceblue' }}> */}
 
-                                            />
-                                        </TableCell>
+                        {/* <CardBody> */}
+                            <div className="overflow-x-auto"  >
+                                <table className="items-center w-full bg-transparent border-collapse">
+                                    <thead style={{ backgroundColor: theme.viewbg.backgroundColor }}>
+                                        <tr>
+                                            <th className="px-2 text-blue-1000 align-middle border-b border-solid border-white-0 py-3 text-lg whitespace-nowrap font-light text-center" style={{ color: theme.typography.primary.mainheading }}>
+                                                {/* <Typography variant='h7'> <b>Email</b></Typography> */}
+                                                <b>Email</b>
+                                            </th>
+                                            <th className="px-2 text-blue-800 align-middle border-b border-solid border-white-0 py-3 text-lg whitespace-nowrap font-light text-center" style={{ color: theme.typography.primary.mainheading }}>
+                                                <b>Description</b>
+                                            </th>
+                                            <th className="px-2 text-blue-800 align-middle border-b border-solid border-white-0 py-3 text-lg whitespace-nowrap font-light text-center" style={{ color: theme.typography.primary.mainheading }}>
+                                                <b>Application Name</b>
+                                            </th>
 
-                                        <TableCell align="center"  style={{ verticalAlign: 'top', color: theme.typography.primary.paragraphbody,}}>
-                                        {appdetails.appname}
-                                        </TableCell>
-                                    </TableRow>
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-center" style={{ color: theme.typography.primary.paragraphbody }}>
+                                                {appdetails.email}
+                                            </td>
+                                            {/* <td className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-center">
+                                                {appdetails.desc}
+                                            </td> */}
+                                            <td className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-center">
+                                                <TextField
+                                                    //  InputProps={{
+                                                    //     classes: {
+                                                    //         input: classes.multilineColor
+                                                    //     }
+                                                    // }}
+                                                    // sx={{ input: { color: 'red' } }}
+                                                    // color='success'
+                                                    // style={{color:'red'}}
+                                                    // sx={{
+                                                    //     "& input": {
+                                                    //         color: 'green',
+                                                    //     }
+                                                    // }}
+                                                    id="standard-multiline-static"
+                                                    // label="Multiline"
+                                                    multiline
+                                                    rows={4}
+                                                    defaultValue={appdetails.desc}
+                                                    variant="standard"
+                                                    // InputProps={{
+                                                    //     readOnly: true,
+                                                    //   }}
+                                                    sx={{
+                                                        "& .MuiInputBase-root": {
+                                                            color: theme.typography.primary.paragraphbody,
+                                                            fontSize:'14px'
+                                                        },
+                                                       
+                                                    }}
+                                                // style={{color:theme.typography.primary.paragraphbody}}
+                                                />
+                                            </td>
+                                            <td className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-center" style={{ color: theme.typography.primary.paragraphbody }}>
+                                                {appdetails.appname}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        {/* </CardBody> */}
+
 
                     </Grid>
 
 
+                {/* </div> */}
 
-                </Grid>
+            </Grid>
 
-            </div>
+
 
 
 

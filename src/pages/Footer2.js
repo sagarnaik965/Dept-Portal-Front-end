@@ -39,7 +39,7 @@ const Footer2 = () => {
     }
     return (
         <>
-            <AppBar position="sticky" color="primary" bottom='0px' style={{ top: 'auto', bottom: 0, backgroundColor: theme.navbar.backgroundColor, color: 'white', height: isMobile ? '130px' : 'auto', zIndex: 'inherit', position: 'fixed' }}>
+            <AppBar position="sticky" color="primary" bottom='0px' style={{ top: 'auto', bottom: 0, backgroundColor: theme.navbar.backgroundColor, color: 'white', height: isMobile ? '130px' : 'auto', zIndex: '3' ,position:'fixed'}}>
                 <Toolbar>
 
 
@@ -51,7 +51,7 @@ const Footer2 = () => {
                                 target="_blank"
                                 href="https://www.cdac.in/">
                                 {/* <img src={cdaclogo} style={{ width: isMobile ? '200px' : '350px' ,marginTop:'10px'}} /> */}
-                                <img src={cdaclogo} style={{ width: isMobile ? '0px' : '100px', height: isMobile ? '0px' : '50px', marginTop: '10px' }} />
+                                <img src={cdaclogo} style={{ width: isMobile ? '0px' : '100px' ,height:isMobile ? '0px' : '50px' ,marginTop:'10px'}} />
 
                             </a>
                         </Grid>
@@ -68,32 +68,32 @@ const Footer2 = () => {
                                 </a>
                             </TableCell> */}
                                     <TableCell style={{ borderRight: '0px solid white', borderBottom: '0px' }}>
-                                        <a target="_blank" href='https://advservice.epramaan.gov.in/dashboard/sitemap'><Button variant='text' color="inherit" style={{ fontSize: isMobile ? '7px' : '11px', outline: 'none' }} >Sitemap </Button>|</a>
-                                        <a target="_blank" href='https://advservice.epramaan.gov.in/dashboard/hyperlinking'>
-                                            <Button variant='text' color="inherit" style={{ fontSize: isMobile ? '7px' : '11px', outline: 'none' }}>Hyperlink Policy</Button>|
+                                        <a  target="_blank" href='https://advservice.epramaan.gov.in/dashboard/sitemap'><Button variant='text' color="inherit"style={{ fontSize: isMobile ? '7px' : '11px' ,outline:'none'}} >Sitemap </Button>|</a>
+                                        <a   target="_blank" href='https://advservice.epramaan.gov.in/dashboard/hyperlinking'>
+                                        <Button variant='text' color="inherit" style={{ fontSize: isMobile ? '7px' : '11px',outline:'none' }}>Hyperlink Policy</Button>|
 
                                         </a>
-                                        <a target="_blank" href='https://advservice.epramaan.gov.in/dashboard/help'>
-                                            <Button variant='text' color="inherit" style={{ fontSize: isMobile ? '7px' : '11px', outline: 'none' }}>Help</Button>|
+                                        <a  target="_blank" href='https://advservice.epramaan.gov.in/dashboard/help'>
+                                        <Button variant='text' color="inherit" style={{ fontSize: isMobile ? '7px' : '11px' ,outline:'none'}}>Help</Button>|
 
                                         </a>
-                                        <a target="_blank" href='https://advservice.epramaan.gov.in/dashboard/disclaimer'>
-                                            <Button variant='text' color="inherit" style={{ fontSize: isMobile ? '7px' : '11px', outline: 'none' }}>Disclaimer</Button>|
+                                        <a  target="_blank" href='https://advservice.epramaan.gov.in/dashboard/disclaimer'>
+                                        <Button variant='text' color="inherit"  style={{ fontSize: isMobile ? '7px' : '11px',outline:'none' }}>Disclaimer</Button>|
 
                                         </a>
-                                        <a target="_blank" href='https://advservice.epramaan.gov.in/dashboard/copyright'>
-                                            <Button variant='text' color="inherit" style={{ fontSize: isMobile ? '7px' : '11px', outline: 'none' }}>Copyright Policy</Button>|
+                                        <a  target="_blank" href='https://advservice.epramaan.gov.in/dashboard/copyright'>
+                                        <Button variant='text' color="inherit"  style={{ fontSize: isMobile ? '7px' : '11px',outline:'none' }}>Copyright Policy</Button>|
 
                                         </a>
-                                        <a target="_blank" href='https://advservice.epramaan.gov.in/dashboard/privacy'>
-                                            <Button variant='text' color="inherit" style={{ fontSize: isMobile ? '7px' : '11px', outline: 'none' }}>Privacy Policy</Button>|
+                                        <a  target="_blank" href='https://advservice.epramaan.gov.in/dashboard/privacy'>
+                                        <Button variant='text' color="inherit"  style={{ fontSize: isMobile ? '7px' : '11px' ,outline:'none'}}>Privacy Policy</Button>|
 
                                         </a>
-                                        <a target="_blank" href='https://advservice.epramaan.gov.in/dashboard/terms'>
-                                            <Button variant='text' color="inherit" style={{ fontSize: isMobile ? '7px' : '11px', outline: 'none' }}>Terms and Conditions</Button>
+                                        <a  target="_blank" href='https://advservice.epramaan.gov.in/dashboard/terms'>
+                                        <Button variant='text' color="inherit"  style={{ fontSize: isMobile ? '7px' : '11px' ,outline:'none'}}>Terms and Conditions</Button>
 
                                         </a>
-
+                                    
                                     </TableCell>
                                     {/* <TableCell style={{ borderRight: '1px solid white', borderBottom: '0px' }}>
                                         <Button variant='text' color="inherit" onClick={handleHyperlink} style={{ fontSize: isMobile ? '9px' : '11px' }}>Hyperlink Policy</Button>
@@ -117,7 +117,7 @@ const Footer2 = () => {
                                         <Button variant='text' color="inherit" onClick={handleTerms} style={{ fontSize: isMobile ? '9px' : '11px' }}>Terms and Conditions</Button>
 
                                     </TableCell> */}
-
+                                 
                                 </TableRow>
                             </TableContainer>
 
@@ -159,7 +159,7 @@ const Footer2 = () => {
                                 rel="noreferrer"
                                 className="text-light-blue-500 mr-1 hover:text-light-blue-700"
                             >
-                                <FacebookIcon style={{ color: 'white', marginTop: '10px', width: isMobile ? '20px' : '20px', height: isMobile ? '20px' : '20px' }} />
+                                <FacebookIcon  style={{ color: 'white', marginTop: '10px',width:isMobile ? '20px' : '20px',height:isMobile ? '20px' : '20px' }} />
 
                             </a>
                             <a
@@ -168,7 +168,7 @@ const Footer2 = () => {
                                 rel="noreferrer"
                                 className="text-light-blue-500 mr-1 hover:text-light-blue-700"
                             >
-                                <LinkedInIcon style={{ color: 'white', marginTop: '10px', width: isMobile ? '20px' : '20px', height: isMobile ? '20px' : '20px' }} />
+                                <LinkedInIcon style={{ color: 'white', marginTop: '10px',width:isMobile ? '20px' : '20px',height:isMobile ? '20px' : '20px' }} />
                             </a>
                             <a
                                 href="https://twitter.com/epramaan"
@@ -176,7 +176,7 @@ const Footer2 = () => {
                                 rel="noreferrer"
                                 className="text-light-blue-500 mr-1 hover:text-light-blue-700"
                             >
-                                <TwitterIcon style={{ color: 'white', marginTop: '10px', width: isMobile ? '20px' : '20px', height: isMobile ? '20px' : '20px' }} />
+                                <TwitterIcon style={{ color: 'white', marginTop: '10px',width:isMobile ? '20px' : '20px',height:isMobile ? '20px' : '20px' }} />
                             </a>
                         </Grid>
                         <hr></hr>
