@@ -13,22 +13,16 @@ const ApplicationDetails = () => {
     const [spinner, setSpinner] = useState(false);
     let history = useHistory();
     var decryptedText = "";
-
     useEffect(() => {
-
+        window.scrollTo(0, 0)
         if (localStorage.getItem("LsdItped") === null) {
-            // Toastwarning("Please login first!")
             window.location.replace(BaseLocal + "Logout");
         }
         else {
 
         }
-
-
-
         /////////////////////////////get lc
         var CryptoJS = require("crypto-js");
-
         var base64Key = "QWJjZGVmZ2hpamtsbW5vcA==";
         var key = CryptoJS.enc.Base64.parse(base64Key);
         var plaintText = "x";
@@ -48,11 +42,9 @@ const ApplicationDetails = () => {
         }
         decryptedText = decryptedData.toString(CryptoJS.enc.Utf8);
         /////////////////////////////get username
-
         // -----------------------------------------code to check wheather user is logout or not----------------------------------------------
         if (localStorage.getItem("LsdItped") === null) { }
         else {
-
             fetch(BaseLocal + "isSessNull", {
                 method: "POST",
                 body: decryptedText,
@@ -67,28 +59,19 @@ const ApplicationDetails = () => {
                     return response;
                 })
                 .then((actualData) => {
-                    console.log(actualData)
-                    console.log(actualData.status)
                     if (actualData.status === 400) {
                         window.location.replace(BaseLocal + "Logout");
 
                     }
                 })
                 .catch((err) => {
-                    console.log(err.message);
                     if (err.message == "Failed to fetch") {
 
-                        history.push("/deptadmin/LoginRequired")
+                        history.push("/adv/LoginRequired")
                     }
 
                 });
         }
-
-
-
-
-
-
         const fetchData = () => {
             setSpinner(true)
             fetch(Baseurl + "appcodedetails", {
@@ -106,9 +89,7 @@ const ApplicationDetails = () => {
                 }).then((res) => {
                     setApplications(res)
                     setSpinner(false)
-
                 }).catch(e => {
-                    console.log("error", e)
                     setSpinner(true)
                 })
         }
@@ -122,12 +103,12 @@ const ApplicationDetails = () => {
                 {spinner ?
                     <>
                         <div style={{
-                            position: 'absolute', left: '50%', top: '50%',
+                            position: 'absolute', left: '50%', top: '30%',
                             transform: 'translate(-50%, -50%)',
 
                         }}>
                             <center >
-                                <ReactLoading type="spokes" color='#40c4ff' height={50} width={60}/>
+                                <ReactLoading type="spokes" color='#40c4ff' height={50} width={60} />
                             </center>
                         </div>
                     </>
@@ -145,7 +126,6 @@ const ApplicationDetails = () => {
 
                                         </tr>
                                     </thead>
-
                                     <tbody className="bg-white">
                                         {
                                             Applications.map(e =>
@@ -158,12 +138,7 @@ const ApplicationDetails = () => {
                                                             </div>
                                                             <div className="ml-4">
                                                                 <div className="text-sm font-small leading-5 text-gray-900" style={{ color: theme.typography.primary.paragraphbody, backgroundColor: theme.tablecontainer.backgroundColor }}>
-                                                                    <NavLink to={`/deptadmin/applicationinfo/${e.auaCode}/${e.appName}`}>{e.appName}</NavLink>
-                                                                    {/* <NavLink to={`/adv/applicationinfo/${e.auaCode}`}>{e.appName}</NavLink> */}
-
-                                                                    {/* <NavLink to={`/adv/appcharts/${e.auaCode}`}>{e.appName}</NavLink> */}
-
-
+                                                                    <NavLink to={`/adv/applicationinfo/${e.auaCode}/${e.appName}`}>{e.appName}</NavLink>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -171,9 +146,6 @@ const ApplicationDetails = () => {
                                                 </tr>
                                             )
                                         }
-                                        {/* <br />
-                                    <br /> */}
-
                                     </tbody>
                                     <br />
                                     <br />

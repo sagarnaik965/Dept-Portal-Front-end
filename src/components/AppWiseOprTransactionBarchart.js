@@ -72,13 +72,7 @@ export function AppWiseoprTransactionBarchart() {
     dataLabels: {
       
       formatter: (val) => {
-      
-        // val= val/1000000;
-        // return val.toFixed(2) + 'mn'
-
-        // val= val/100000;
         return val.toFixed(2) 
-        // return val;
 
       }
     },
@@ -301,7 +295,6 @@ export function AppWiseoprTransactionBarchart() {
       );
       decryptedText = decryptedData.toString(CryptoJS.enc.Utf8);
     }
-    console.log("decryptedText = in billing " + decryptedText);
     setusername(decryptedText)
     /////////////////////////////get username
 
@@ -323,15 +316,12 @@ export function AppWiseoprTransactionBarchart() {
           return response;
         })
         .then((actualData) => {
-          console.log(actualData)
-          console.log(actualData.status)
           if (actualData.status === 400) {
             window.location.replace(BaseLocal + "Logout");
 
           }
         })
         .catch((err) => {
-          console.log(err.message);
           if (err.message == "Failed to fetch") {
 
             history.push("/adv/LoginRequired")
@@ -361,17 +351,14 @@ export function AppWiseoprTransactionBarchart() {
       )
         .then((data) => {
           const res = data.json();
-          console.log(res)
           return res
         }).then((res) => {
-          // console.log("resss", res)
           setSeries1(res.appWiseChartData)
           setAppNames(res.applicationnames)
           setSpinner(false)
 
 
         }).catch(e => {
-          console.log("error", e)
         })
     }
     appwisechart();

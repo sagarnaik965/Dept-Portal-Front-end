@@ -5,13 +5,12 @@ import {
   BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title,
   Tooltip
 } from "chart.js";
-import { Bar } from "react-chartjs-2";
+import { Bar, Line } from "react-chartjs-2";
 import { useParams } from "react-router-dom";
 import BaseLocal from "./BaseLocal";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useTheme } from '@material-ui/core/styles';
 
-// import faker from "faker";
 
 ChartJS.register(
   CategoryScale,
@@ -22,36 +21,8 @@ ChartJS.register(
   Legend
 );
 
-// export const options = {
-//   scales: {
-//     x: {
-//         ticks: {
-//             color: theme.typography.primary.paragraphbody
-//         }
-//     },
-//     y: {
-//         ticks: {
-//             color: theme.typography.primary.paragraphbody
-//         }
-//     }
-// },
-//   responsive: true,
-//   // plugins: {
-//   //   legend: {
-//   //     // position: 'top' as const,
-//   //   },
-//   //   title: {
-//   //     display: true,
-//   //   //   text: "Chart.js Bar Chart"
-//   //   },  
-
-//   // }
-// };
-
-
 
 export function AppChart() {
-
   const [oprnames, setoprnames] = useState([]);
 // const labels = ["getrefnum", "getuid", "activate", "struid", "deactivate"];
 const labels = oprnames;
@@ -65,9 +36,6 @@ const d1 = [];
   const [yes, setYes] = useState([]);
   const [txnforTotal, setTotal] = useState([]);
   const [spinner, setSpinner] = useState(false);
-
-
-
 
   const data = {
     labels,
@@ -122,6 +90,8 @@ const d1 = [];
 
   useEffect(() => {
 
+    window.scrollTo(0,0)
+
     if (localStorage.getItem("LsdItped") === null) {
       // Toastwarning("Please login first!")
       window.location.replace(BaseLocal + "Logout");
@@ -152,7 +122,6 @@ const d1 = [];
       );
       decryptedText = decryptedData.toString(CryptoJS.enc.Utf8);
     }
-    console.log("decryptedText = in billing " + decryptedText);
     setusername(decryptedText)
     /////////////////////////////get username
 
@@ -174,18 +143,15 @@ const d1 = [];
           return response;
         })
         .then((actualData) => {
-          console.log(actualData)
-          console.log(actualData.status)
           if (actualData.status === 400) {
             window.location.replace(BaseLocal + "Logout");
 
           }
         })
         .catch((err) => {
-          console.log(err.message);
           if (err.message == "Failed to fetch") {
 
-            history.push("/admin/LoginRequired")
+            history.push("/adv/LoginRequired")
           }
 
         });
@@ -209,7 +175,6 @@ const d1 = [];
           const res = data.json();
           return res
         }).then((res) => {
-          // console.log("resss", res)
           var label = [];
           var data = [];
           for (var i of res) {
@@ -218,11 +183,7 @@ const d1 = [];
           }
           setNo(data);
           setSpinner(false)
-
-
-
         }).catch(e => {
-          console.log("error", e)
         })
     }
     txnforNo();
@@ -241,9 +202,6 @@ const d1 = [];
           const res = data.json();
           return res
         }).then((res) => {
-          // console.log("resss", res)
-          console.log(res)
-
           var label = [];
           var data = [];
           for (var i of res) {
@@ -252,7 +210,6 @@ const d1 = [];
           }
           setYes(data);
         }).catch(e => {
-          console.log("error", e)
         })
     }
     txnforYes();
@@ -272,12 +229,8 @@ const d1 = [];
       )
         .then((data) => {
           const res = data.json();
-          console.log(res)
           return res
         }).then((res) => {
-          // console.log("resss", res)
-          console.log(res)
-        
 
           var label = [];
           var data = [];
@@ -289,7 +242,6 @@ const d1 = [];
 
           setoprnames(label);
         }).catch(e => {
-          console.log("error", e)
         })
     }
     txnforTotal();
@@ -301,13 +253,13 @@ const d1 = [];
       {spinner ?
         <>
           <div style={{
-            marginTop: '200px',
-            position: 'absolute', left: '60%', top: '40%',
+            marginTop: '100px',
+            position: 'absolute', left: '60%', top: '20%',
             transform: 'translate(-50%, -50%)'
           }}>
 
             <center className='advloading' >
-              <ReactLoading type="spinningBubbles" color="#0000FF" height={100} width={120} />
+              <ReactLoading type="spinningBubbles" color='#40c4ff' height={50} width={60} />
             </center>
 
 
@@ -315,7 +267,8 @@ const d1 = [];
 
         </>
         :
-        <Bar options={options} data={data} />
+        // <Line options={options} data={data}  height={300}  style={{  maxHeight:'100%'  }} />
+        <Bar options={options} data={data}  height={300}  style={{  maxHeight:'100%'  }} />
       }
     </div>
     </>

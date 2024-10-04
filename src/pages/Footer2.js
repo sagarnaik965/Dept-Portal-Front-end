@@ -39,7 +39,7 @@ const Footer2 = () => {
     }
     return (
         <>
-            <AppBar position="sticky" color="primary" bottom='0px' style={{ top: 'auto', bottom: 0, backgroundColor: theme.navbar.backgroundColor, color: 'white', height: isMobile ? '130px' : 'auto', zIndex: '3' ,position:'fixed'}}>
+            <AppBar position="sticky" color="primary" bottom='0px' style={{ top: 'auto', bottom: 0, backgroundColor: theme.navbar.backgroundColor, color: 'white', height: isMobile ? '130px' : 'auto', zIndex: 'inherit' ,position:'fixed'}}>
                 <Toolbar>
 
 

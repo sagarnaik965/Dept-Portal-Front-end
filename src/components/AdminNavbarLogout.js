@@ -4,8 +4,11 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { AiOutlineCloseCircle, AiOutlineMenu } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutApiAction } from "../store/authslice";
+import CancelIcon from '@mui/icons-material/Cancel';
+
 export default function AdminNavbarLogout({ showSidebar, setShowSidebar }) {
     const isMobile = window.innerWidth <= 768;
+
     let { authStore } = useSelector((state) => state);
     var CryptoJS = require("crypto-js");
     // const user =JSON.parse( CryptoJS.AES.decrypt(authStore.deptId, 'abc').toString(CryptoJS.enc.Utf8))
@@ -103,125 +106,7 @@ export default function AdminNavbarLogout({ showSidebar, setShowSidebar }) {
                 </div>
             </div>
 
-{/* --------------------------------------------Navbar with right align items without responsive button----------------------------------------------------------------- */}
 
-            {/* <nav className="bg-light-Green-500  py-1 px-3" style={{ backgroundColor: '#f0f0f0', marginTop: '0px', marginBottom: '10px' }}>
-                <div className="container max-w-full mx-auto flex items-center justify-between md:pr-8 md:pl-10">
-                    <div className="flex justify-between items-center w-full">
-                        <h4 className="uppercase text-white text-sm tracking-wider mt-1">
-                        </h4>
-                        <div className="flex">
-                            <div style={{ marginRight: '25px' }}>
-                                <Button1
-                                    style={{ color: 'grey' }}
-                                    id="fade-button"
-                                    aria-controls={open3 ? 'fade-menu' : undefined}
-                                    aria-haspopup="true"
-                                    aria-expanded={open3 ? 'true' : undefined}
-                                    onClick={handleClick3}
-                                >
-                                    About Us
-                                </Button1>
-                                <Menu
-                                    id="fade-menu"
-                                    MenuListProps={{
-                                        'aria-labelledby': 'fade-button',
-                                    }}
-                                    anchorEl={anchorE3}
-                                    open={open3}
-                                    onClose={handleClose3}
-                                    TransitionComponent={Fade}
-                                >
-                                    <MenuItem style={{ backgroundColor: '#eaeaea' }} onClick={(e) => { handleClose3(); navtoADV() }}  >Aadhaar Data Vault(ADV)</MenuItem>
-                                </Menu>
-                            </div>
-
-                            <div style={{ marginRight: '25px' }}>
-                                <Button1
-                                    style={{ color: 'grey' }}
-                                    id="fade-button"
-                                    aria-controls={open1 ? 'fade-menu' : undefined}
-                                    aria-haspopup="true"
-                                    aria-expanded={open1 ? 'true' : undefined}
-                                    onClick={handleClick1}
-                                >
-                                    Services
-                                </Button1>
-                                <Menu
-                                    id="fade-menu"
-                                    MenuListProps={{
-                                        'aria-labelledby': 'fade-button',
-                                    }}
-                                    anchorEl={anchorEl}
-                                    open={open1}
-                                    onClose={handleClose1}
-                                    TransitionComponent={Fade}
-                                >
-                                    <MenuItem style={{ backgroundColor: '#eaeaea' }} onClick={(e) => { handleClose1(); navtoadvasservice() }}  >Aadhaar Data Vault as a Service</MenuItem>
-                                    <hr />
-                                    <MenuItem style={{ backgroundColor: '#eaeaea' }} onClick={(e) => { handleClose1(); navtoadvassolution() }}>Aadhaar Data Vault as a Solution</MenuItem>
-                                </Menu>
-                            </div>
-
-                            <div style={{ marginRight: '25px', display: 'flex' }} >
-                                <MdPhone style={{ marginTop: '7px' }} />
-                                <Button1
-                                    style={{ color: 'grey' }}
-                                    id="fade-button"
-                                    aria-controls={open2 ? 'fade-menu' : undefined}
-                                    aria-haspopup="true"
-                                    aria-expanded={open2 ? 'true' : undefined}
-                                    onClick={handleClick2}
-                                >
-                                    Contact Us
-                                </Button1>
-                                <Menu
-                                    id="fade-menu"
-                                    MenuListProps={{
-                                        'aria-labelledby': 'fade-button',
-                                    }}
-                                    anchorEl={anchorE2}
-                                    open={open2}
-                                    onClose={handleClose2}
-                                    TransitionComponent={Fade}
-                                >
-                                    <MenuItem style={{ backgroundColor: '#eaeaea' }} onClick={(e) => { handleClose2(); navtoadvcontact() }}   >Contact</MenuItem>
-                                    <hr />
-                                    <MenuItem style={{ backgroundColor: '#eaeaea' }} onClick={(e) => { handleClose2(); navtoadvresources() }}  >Resources</MenuItem>
-                                </Menu>
-                            </div>
-
-
-                            {authStore.deptId &&
-                                <div style={{ marginRight: '25px', color: '#26a69a', }}>
-                                    <Button1
-                                        style={{ color: 'grey' }}
-                                        id="fade-button"
-                                        aria-controls={open3 ? 'fade-menu' : undefined}
-                                        aria-haspopup="true"
-                                        aria-expanded={open3 ? 'true' : undefined}
-                                    >
-                                        {decryptedData}
-                                    </Button1>
-
-                                </div>
-                            }
-                            <div style={{ marginRight: '25px' }}>
-                                <Button1
-                                    style={{ color: 'grey' }}
-                                    id="fade-button"
-                                    aria-controls={open3 ? 'fade-menu' : undefined}
-                                    aria-haspopup="true"
-                                    aria-expanded={open3 ? 'true' : undefined}
-                                    onClick={processLoginAction}
-                                >
-                                    Logout
-                                </Button1>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </nav> */}
         </>
     );
 }

@@ -15,19 +15,15 @@ import Baseurl from "../components/Baseurl";
 import { toast, ToastContainer, Slide } from 'react-toastify';
 import BaseLocal from '../components/BaseLocal';
 import { useTheme } from '@material-ui/core/styles';
-
-
+import ToastAlerts from '../components/ToastAlerts';
 const Report = () => {
   const theme = useTheme()
   let history = useHistory();
   var decryptedText = "";
   let [username, setusername] = useState("");
-
-
   useEffect(() => {
-
+    window.scrollTo(0, 0)
     if (localStorage.getItem("LsdItped") === null) {
-      // Toastwarning("Please login first!")
       window.location.replace(BaseLocal + "Logout");
     }
     else {
@@ -36,7 +32,6 @@ const Report = () => {
 
     /////////////////////////////get lc
     var CryptoJS = require("crypto-js");
-
     var base64Key = "QWJjZGVmZ2hpamtsbW5vcA==";
     var key = CryptoJS.enc.Base64.parse(base64Key);
     var plaintText = "x";
@@ -56,7 +51,6 @@ const Report = () => {
       );
       decryptedText = decryptedData.toString(CryptoJS.enc.Utf8);
     }
-    console.log("decryptedText = in billing " + decryptedText);
     setusername(decryptedText)
     /////////////////////////////get username
 
@@ -78,42 +72,25 @@ const Report = () => {
           return response;
         })
         .then((actualData) => {
-          console.log(actualData)
-          console.log(actualData.status)
           if (actualData.status === 400) {
             window.location.replace(BaseLocal + "Logout");
-
           }
         })
         .catch((err) => {
-          console.log(err.message);
           if (err.message == "Failed to fetch") {
 
             history.push("/adv/LoginRequired")
           }
-
         });
     }
 
   }, []);
-
-
   const handlecuststart = (e) => {
-    // alert(e.target.value)
     setCuststart(e.target.value)
   }
-
   const handlecustlast = (e) => {
-    // alert(e.target.value)
     setCustlast(e.target.value)
   }
-
-
-
-
-  const [startDate, setStartDate] = useState(new Date());
-  const [LastDate, setLastDate] = useState(new Date());
-
   const [custstart, setCuststart] = useState();
   const [custlast, setCustlast] = useState();
 
@@ -122,25 +99,18 @@ const Report = () => {
   let [quarterlyQuarter, setQuarterlyQuarter] = useState();
   let [quarterlyYear, setQuarterlyYear] = useState();
   let [yearlyYear, setyearlyYear] = useState();
-  let [customfdate, setcustomfdate] = useState();
-  let [customtdate, setcustomtdate] = useState();
-
-  let [monthlycsvdata, setMonthlycsvdata] = useState([[]]);
-
   let [monthlypdfdataflag, setmonthlypdfdataflag] = useState(true);
   let [quaterlypdfdataflag, setquaterlypdfdataflag] = useState(true);
   let [yearlycsvdataflag, setYearlycsvdataflag] = useState(true);
   let [customcsvdataflag, setCustomcsvdataflag] = useState(true);
-
   const monthlyreportsummary = (event) => {
-
     if (MonthlyMonth == undefined) {
-      toastAlertWarning("Please select month first!")
+      toastAlertWarning("Please select month")
       return false;
     }
 
     if (MonthlyYear == undefined) {
-      toastAlertWarning("Please select year first!")
+      toastAlertWarning("Please select year")
       return false;
     }
     let monthNo = '';
@@ -181,7 +151,6 @@ const Report = () => {
       monthNo = 11;
     }
 
-
     if (new Date(MonthlyYear, monthNo, 1) > new Date()) {
       toastAlertWarning("Please select proper month and year")
       return false;
@@ -203,7 +172,7 @@ const Report = () => {
       )
         .then(res => {
           if (res.status == "204") {
-            throw new Error('Data not found for Request.');
+            throw new Error('No data found for specific period');
           }
 
           if (res.status == "500") {
@@ -225,14 +194,15 @@ const Report = () => {
     event.preventDefault();
   }
 
+
   const quaterlyreportsummary = (event) => {
 
     if (quarterlyQuarter == undefined) {
-      toastAlertWarning("Please select quarter!")
+      toastAlertWarning("Please select quarter")
       return false;
     }
     if (quarterlyYear == undefined) {
-      toastAlertWarning("Please select year!")
+      toastAlertWarning("Please select year")
       return false;
     }
     let quarter;
@@ -274,7 +244,7 @@ const Report = () => {
       )
         .then(res => {
           if (res.status == "204") {
-            throw new Error('Data not found for Request.');
+            throw new Error('No data found for specific period');
           }
 
           if (res.status == "500") {
@@ -300,7 +270,8 @@ const Report = () => {
 
   const yealryreportsummary = (event) => {
     if (yearlyYear == undefined) {
-      toastAlertWarning("Please select year!")
+      // toastAlertWarning("Please select year")
+      ToastAlerts("Please select year")
       return false;
     }
     setSpinner(true);
@@ -318,7 +289,7 @@ const Report = () => {
         }
       ).then(res => {
         if (res.status == "204") {
-          throw new Error('Data not found for Request.');
+          throw new Error('No data found for specific period');
         }
 
         if (res.status == "500") {
@@ -332,9 +303,7 @@ const Report = () => {
           setYearlycsvdataflag(true)
         })
         .catch(e => {
-          // alert(e.message)
           toastAlertWarning(e.message)
-
           setYearlycsvdataflag(true)
         })
     }
@@ -345,16 +314,16 @@ const Report = () => {
 
   const customreportsummarynew = (event) => {
     if (custlast == undefined) {
-      toastAlertWarning("Please select date!")
+      toastAlertWarning("Please select date")
       return false;
     }
     if (custstart == undefined) {
-      toastAlertWarning("Please select date!")
+      toastAlertWarning("Please select date")
 
       return false;
     }
     if (new Date(custstart) > new Date(custlast)) {
-      toastAlertWarning("please select proper date!")
+      toastAlertWarning("please select proper date")
       return false
     }
     var todays = new Date();
@@ -378,7 +347,7 @@ const Report = () => {
         }
       ).then(res => {
         if (res.status == "204") {
-          throw new Error('Data not found for Request.');
+          throw new Error('No data found for specific period');
         }
 
         if (res.status == "500") {
@@ -394,7 +363,6 @@ const Report = () => {
         .catch(e => {
           toastAlertWarning(e.message)
           setCustomcsvdataflag(true)
-          console.log("error", e)
         })
     }
     custom();
@@ -420,7 +388,7 @@ const Report = () => {
   function formatDate() {
     var d = new Date(),
       month = '' + (d.getMonth() + 1),
-      day = '' + d.getDate(),
+      day = '' + (d.getDate() - 5),
       year = d.getFullYear();
 
     if (month.length < 2)
@@ -432,8 +400,11 @@ const Report = () => {
   }
 
   const toastAlertWarning = (message) => {
-    toast.warn(message, {
-      position: "top-center",
+    toast.warn(message,{
+      position: 'top-right',
+      style: {
+        top: '130px',
+      },
       autoClose: 5000,
       transition: Slide,
       hideProgressBar: false,
@@ -441,36 +412,21 @@ const Report = () => {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: "light",
+      theme: theme.typography.primary.alert,
     });
-
-    // toast.warn(message, {
-    //   position: "top-center",
-    //   autoClose: 5000,
-    //   hideProgressBar: false,
-    //   closeOnClick: true,
-    //   pauseOnHover: true,
-    //   draggable: true,
-    //   progress: undefined,
-    //   theme: "light",
-    // });
-
   }
 
 
 
   return (
     <div>
-      <br></br>
 
       <ToastContainer />
-      <div style={{ marginLeft: 'auto', marginRight: 'auto', width: '80%', height: 'auto', paddingBottom: '500px' }}>
-
+      <div style={{ scrollbarWidth: 'none', marginLeft: 'auto', marginRight: 'auto', width: '80%', height: 'auto', paddingBottom: '300px' }}>
         <div style={{ fontSize: '30px', fontWeight: 'bold', color: theme.typography.primary.mainheading }}>Reports</div>
         <hr />
         <br />
         {/* ------------------------------------code for choice-------------------------------------------------- */}
-
         <FormControl>
           <FormLabel id="demo-row-radio-buttons-group-label"></FormLabel>
           <RadioGroup
@@ -479,10 +435,10 @@ const Report = () => {
             name="row-radio-buttons-group"
             defaultValue="Monthly"
           >
-            <FormControlLabel size="small" value="Monthly" onClick={handleflag} control={<Radio />} label="Month" style={{ color: theme.typography.primary.paragraphbody }} />
-            <FormControlLabel value="Quarterly" onClick={handleflag} control={<Radio />} label="Quarter" style={{ color: theme.typography.primary.paragraphbody }} />
-            <FormControlLabel value="Yearly" onClick={handleflag} control={<Radio />} label="Year" style={{ color: theme.typography.primary.paragraphbody }} />
-            <FormControlLabel value="Custom" onClick={handleflag} control={<Radio />} label="Custom" style={{ color: theme.typography.primary.paragraphbody }} />
+            <FormControlLabel size="small" value="Monthly" onClick={handleflag} control={<Radio style={{color:theme.typography.primary.radiobtn}} />} label="Month" style={{ color: theme.typography.primary.paragraphbody }} />
+            <FormControlLabel value="Quarterly" onClick={handleflag} control={<Radio style={{color:theme.typography.primary.radiobtn}} />} label="Quarter" style={{ color: theme.typography.primary.paragraphbody }} />
+            <FormControlLabel value="Yearly" onClick={handleflag} control={<Radio style={{color:theme.typography.primary.radiobtn}} />} label="Year" style={{ color: theme.typography.primary.paragraphbody }} />
+            <FormControlLabel value="Custom" onClick={handleflag} control={<Radio  style={{color:theme.typography.primary.radiobtn}}/>} label="Custom" style={{ color: theme.typography.primary.paragraphbody }} />
           </RadioGroup>
         </FormControl>
         <br />
@@ -490,9 +446,9 @@ const Report = () => {
 
         {flag === "Monthly" && <>
           <Grid container spacing={1}>
-            <Grid item xs={13} sm={8} md={3} className="flex flex-col lg:flex-row justify-between"  >
+            <Grid item xs={13} sm={8} md={2} className="flex flex-col lg:flex-row justify-between"  >
               <div>
-                <FormControl style={{ minWidth: 190 }} size='small' >
+                <FormControl style={{ minWidth: 120 }} size='small' >
                   <InputLabel id="demo-simple-select-label" style={{ color: theme.typography.primary.app }}>Month</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
@@ -500,7 +456,7 @@ const Report = () => {
                     label="Month"
                     // value="01"
                     onChange={e => setMonthlyMonth(e.target.value)}
-                    style={{  backgroundColor: theme.dropdownbg.backgroundColor, color: theme.typography.primary.paragraphbody }}
+                    style={{ backgroundColor: theme.dropdownbg.backgroundColor, color: theme.typography.primary.paragraphbody }}
                   >
                     <MenuItem value="01" style={{ color: theme.typography.primary.paragraphbody, backgroundColor: theme.dropdownbg.backgroundColor }}>January</MenuItem>
                     <MenuItem value="02" style={{ color: theme.typography.primary.paragraphbody, backgroundColor: theme.dropdownbg.backgroundColor }}>February</MenuItem>
@@ -517,15 +473,11 @@ const Report = () => {
                   </Select>
                 </FormControl>
               </div>
-
-
-
-
             </Grid>
 
-            <Grid item xs={13} sm={8} md={3}  >
+            <Grid item xs={13} sm={8} md={2}  >
               <div style={{ display: 'inline-block' }}>
-                <FormControl style={{ minWidth: 190 }}  size='small' >
+                <FormControl style={{ minWidth: 120 }} size='small' >
                   <InputLabel id="demo-simple-select-label" style={{ color: theme.typography.primary.app }}>Year</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
@@ -533,7 +485,7 @@ const Report = () => {
                     label="Year"
                     // value={years[0]}
                     onChange={e => setMonthlyYear(e.target.value)}
-                    style={{  backgroundColor: theme.dropdownbg.backgroundColor, color: theme.typography.primary.paragraphbody }}
+                    style={{ backgroundColor: theme.dropdownbg.backgroundColor, color: theme.typography.primary.paragraphbody }}
                   >
                     {
                       years.map((year, index) => {
@@ -542,17 +494,16 @@ const Report = () => {
                     }
                   </Select>
                 </FormControl>
-
               </div>
-
-
             </Grid>
 
-            <Grid item xs={13} sm={8} md={3} >
+
+
+            <Grid item xs={13} sm={8} md={2} >
               <div>
                 {monthlypdfdataflag ?
                   <>
-                    <Button size="normal" color="info" variant="outlined" onClick={monthlyreportsummary}>Download&nbsp;</Button>
+                    <Button size="normal" color="info" variant="contained" onClick={monthlyreportsummary}>Download&nbsp;</Button>
                   </>
                   :
                   < >
@@ -567,17 +518,18 @@ const Report = () => {
                     }
                   </>
                 }</div>
-
             </Grid>
           </Grid>
         </>
         }
 
+
+
         {flag === "Quarterly" && <>
           <Grid container spacing={1}>
-            <Grid item xs={13} sm={8} md={3} >
+            <Grid item xs={13} sm={8} md={3} className="flex flex-col lg:flex-row justify-between">
               <div>
-                <FormControl style={{ minWidth: 190 }} size='small' >
+                <FormControl style={{ minWidth: 170 }} size='small' >
                   <InputLabel id="demo-simple-select-label" style={{ color: theme.typography.primary.app }}> Quarter</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
@@ -585,8 +537,7 @@ const Report = () => {
                     label="Quarter"
                     // value="01"
                     onChange={e => setQuarterlyQuarter(e.target.value)}
-                    style={{backgroundColor: theme.dropdownbg.backgroundColor, color: theme.typography.primary.paragraphbody }}
-
+                    style={{ backgroundColor: theme.dropdownbg.backgroundColor, color: theme.typography.primary.paragraphbody }}
                   >
                     <MenuItem value="01" style={{ color: theme.typography.primary.paragraphbody, backgroundColor: theme.dropdownbg.backgroundColor }}>January-March</MenuItem>
                     <MenuItem value="04" style={{ color: theme.typography.primary.paragraphbody, backgroundColor: theme.dropdownbg.backgroundColor }}>April-June</MenuItem>
@@ -595,11 +546,13 @@ const Report = () => {
                   </Select>
                 </FormControl>
               </div>
-
             </Grid>
+
+
+
             <Grid item xs={13} sm={8} md={3}   >
               <div>
-                <FormControl style={{ minWidth: 190 }}  size='small' >
+                <FormControl style={{ minWidth: 140 }} size='small' >
                   <InputLabel id="demo-simple-select-label" style={{ color: theme.typography.primary.app }}>Year</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
@@ -621,17 +574,17 @@ const Report = () => {
               </div>
             </Grid>
 
-            <Grid item xs={13} sm={8} md={3} >
+
+
+            <Grid item xs={13} sm={8} md={2} >
               <div>
                 {quaterlypdfdataflag ? <>
-                  <Button size="normal" color="info" variant="outlined" onClick={quaterlyreportsummary}>Download</Button> </> :
+                  <Button size="normal" color="info" variant="contained" onClick={quaterlyreportsummary}>Download</Button> </> :
                   <>
-
                     {spinner ?
                       (
                         <ReactLoading type="balls" color="#0000FF"
                           height={10} width={40} />)
-
                       :
                       (
                         <></>
@@ -640,17 +593,18 @@ const Report = () => {
                   </>
                 }
               </div>
-
             </Grid>
           </Grid>
         </>}
 
 
+
+
         {flag === "Yearly" && <>
           <Grid container spacing={1}>
-            <Grid item xs={13} sm={8} md={3} >
+            <Grid item xs={13} sm={8} md={2} >
               <div>
-                <FormControl style={{ minWidth: 190 }}  size='small' >
+                <FormControl style={{ minWidth: 120 }} size='small' >
                   <InputLabel
                     id="demo-simple-select-label" style={{ color: theme.typography.primary.app }}
                   >Year</InputLabel>
@@ -658,9 +612,9 @@ const Report = () => {
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     label="Year"
-                    // value={years[0]}
+                    // value={yearlyYear}
                     onChange={e => setyearlyYear(e.target.value)}
-                    style={{backgroundColor: theme.dropdownbg.backgroundColor, color: theme.typography.primary.paragraphbody }}
+                    style={{ backgroundColor: theme.dropdownbg.backgroundColor, color: theme.typography.primary.paragraphbody }}
                   >
                     {
                       years.map((year, index) => {
@@ -674,18 +628,16 @@ const Report = () => {
 
 
 
-            <Grid item xs={13} sm={8} md={3} >
+            <Grid item xs={13} sm={8} md={2} >
               <div>
                 {yearlycsvdataflag ? <>
-                  <Button size="normal" color="info" variant="outlined" onClick={yealryreportsummary}>Download</Button>
-
+                  <Button size="normal" color="info" variant="contained" onClick={yealryreportsummary}>Download</Button>
                 </> :
                   < >
                     {spinner ?
                       (
                         <ReactLoading type="balls" color="#0000FF"
                           height={10} width={40} />)
-
                       :
                       (
                         <></>
@@ -695,9 +647,7 @@ const Report = () => {
 
                   </>
                 }
-
               </div>
-
             </Grid>
           </Grid>
         </>}
@@ -716,11 +666,10 @@ const Report = () => {
                 onChange={handlecuststart}
                 size="small"
                 sx={{
-                  width: 190,
+                  width: 160,
                   "& .MuiInputBase-root": {
                     color: theme.typography.primary.paragraphbody,
                     backgroundColor: theme.dropdownbg.backgroundColor
-
                   },
                 }}
                 style={{ height: '33px', }}
@@ -731,14 +680,11 @@ const Report = () => {
                 }}
                 InputLabelProps={{
                   shrink: true,
-
                 }}
-
               />
 
             </Grid>
             <Grid item xs={13} sm={8} md={3}   >
-
               <TextField
                 id="date"
                 label="To"
@@ -748,7 +694,7 @@ const Report = () => {
                 onChange={handlecustlast}
                 size="small"
                 sx={{
-                  width: 190,
+                  width: 160,
                   "& .MuiInputBase-root": {
                     color: theme.typography.primary.paragraphbody,
                     backgroundColor: theme.dropdownbg.backgroundColor
@@ -761,7 +707,6 @@ const Report = () => {
                 }}
                 InputLabelProps={{
                   shrink: true,
-
                 }}
               />
 
@@ -770,15 +715,13 @@ const Report = () => {
             <Grid item xs={13} sm={8} md={3}  >
               <div >
                 {customcsvdataflag ? <>
-                  <Button size="normal" color="info" variant="outlined" onClick={customreportsummarynew}>Download</Button>
-
+                  <Button size="normal" color="info" variant="contained" onClick={customreportsummarynew}>Download</Button>
                 </> :
                   < >
                     {spinner ?
                       (
                         <ReactLoading type="balls" color="#0000FF"
                           height={10} width={40} />)
-
                       :
                       (
                         <></>
@@ -787,9 +730,7 @@ const Report = () => {
                     }
                   </>
                 }
-
               </div>
-
             </Grid>
           </Grid>
         </>}
@@ -800,7 +741,7 @@ const Report = () => {
         <br></br>
         <br></br>
 
-      
+
         <br></br>
         <br></br>
       </div>

@@ -14,11 +14,7 @@ export default function AdminNavbar({ showSidebar, setShowSidebar }) {
         dispatch(loginApiAction());
         //   history.push("/login")
     };
-    function handleLogin() {
-        alert(authStore.loginStatus)
-        alert("in login now")
-        return <Redirect to="/report" />;
-    }
+  
 
     return (
         <nav className="bg-blue-500 md:ml-64 py-2 px-3">
